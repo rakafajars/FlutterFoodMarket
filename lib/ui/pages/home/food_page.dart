@@ -64,8 +64,28 @@ class _FoodPageState extends State<FoodPage> {
               ),
             ),
             //// List Of Food
-            FoodCard(
-              food: mockFood,
+            Container(
+              height: 258,
+              width: double.infinity,
+              child: ListView(
+                padding: EdgeInsets.only(
+                  left: defaultMargin,
+                ),
+                scrollDirection: Axis.horizontal,
+                children: [
+                  Row(
+                    children: mockFoods
+                        .map((e) => Padding(
+                              padding:
+                                  const EdgeInsets.only(right: defaultMargin),
+                              child: FoodCard(
+                                food: e,
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                ],
+              ),
             ),
             //// List OF Fod (Tabs)
           ],

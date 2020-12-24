@@ -18,14 +18,60 @@ class Food {
   });
 }
 
-Food mockFood = Food(
-  id: 1,
-  picturePath:
-      'https://i.pinimg.com/564x/5d/22/dd/5d22dd53c9ae94f9a263f5c7447ff611.jpg',
-  name: 'Sate Sayur Sultan',
-  description:
-      'Sate Sayur Sultan adalah makanan terenak yang selau bisa membahagiakan pencipta makanan',
-  ingredients: 'Bawang Merah, Paprika, Bawang Bombay, Timun',
-  price: 150000,
-  rate: 4.2,
-);
+List<Food> mockFoods = [
+  Food(
+    id: 1,
+    picturePath:
+        'https://i.pinimg.com/564x/5d/22/dd/5d22dd53c9ae94f9a263f5c7447ff611.jpg',
+    name: 'Sate Sayur Sultan',
+    description:
+        'Sate Sayur Sultan adalah makanan terenak yang selau bisa membahagiakan pencipta makanan',
+    ingredients: 'Bawang Merah, Paprika, Bawang Bombay, Timun',
+    price: 150000,
+    rate: 4.2,
+  ),
+  Food(
+    id: 2,
+    picturePath:
+        'https://i.pinimg.com/564x/5d/22/dd/5d22dd53c9ae94f9a263f5c7447ff611.jpg',
+    name: 'Sate Sayur Sultan',
+    description:
+        'Sate Sayur Sultan adalah makanan terenak yang selau bisa membahagiakan pencipta makanan',
+    ingredients: 'Bawang Merah, Paprika, Bawang Bombay, Timun',
+    price: 150000,
+    rate: 4.2,
+  ),
+  Food(
+    id: 3,
+    picturePath:
+        'https://i.pinimg.com/564x/5d/22/dd/5d22dd53c9ae94f9a263f5c7447ff611.jpg',
+    name: 'Sate Sayur Sultan',
+    description:
+        'Sate Sayur Sultan adalah makanan terenak yang selau bisa membahagiakan pencipta makanan',
+    ingredients: 'Bawang Merah, Paprika, Bawang Bombay, Timun',
+    price: 150000,
+    rate: 4.2,
+  ),
+  Food(
+    id: 4,
+    picturePath:
+        'https://i.pinimg.com/564x/5d/22/dd/5d22dd53c9ae94f9a263f5c7447ff611.jpg',
+    name: 'Sate Sayur Sultan',
+    description:
+        'Sate Sayur Sultan adalah makanan terenak yang selau bisa membahagiakan pencipta makanan',
+    ingredients: 'Bawang Merah, Paprika, Bawang Bombay, Timun',
+    price: 150000,
+    rate: 4.2,
+  ),
+  Food(
+    id: 5,
+    picturePath:
+        'https://i.pinimg.com/564x/5d/22/dd/5d22dd53c9ae94f9a263f5c7447ff611.jpg',
+    name: 'Sate Sayur Sultan',
+    description:
+        'Sate Sayur Sultan adalah makanan terenak yang selau bisa membahagiakan pencipta makanan',
+    ingredients: 'Bawang Merah, Paprika, Bawang Bombay, Timun',
+    price: 150000,
+    rate: 4.2,
+  ),
+];
