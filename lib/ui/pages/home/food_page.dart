@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_market/model/food.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/widget/food_cart.dart';
 import 'package:supercharged/supercharged.dart';
@@ -63,7 +64,9 @@ class _FoodPageState extends State<FoodPage> {
               ),
             ),
             //// List Of Food
-            FoodCard(),
+            FoodCard(
+              food: mockFood,
+            ),
             //// List OF Fod (Tabs)
           ],
         )
