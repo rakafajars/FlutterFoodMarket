@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/shared/theme.dart';
+import 'package:flutter_food_market/ui/pages/address_page.dart';
 import 'package:flutter_food_market/ui/pages/general_page.dart';
 import 'package:flutter_food_market/ui/widget/custome_button.dart';
 import 'package:flutter_food_market/ui/widget/textfield_custome.dart';
@@ -110,7 +111,11 @@ class _SignUpPageState extends State<SignUpPage> {
               title: 'Continue',
               colorsButton: mainColor,
               colorsText: Colors.black,
-              onPressed: () {},
+              onPressed: () {
+                Get.to(
+                  AddressPage(),
+                );
+              },
             ),
           ),
         ],

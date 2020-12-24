@@ -64,7 +64,7 @@ class _SignInPageState extends State<SignInPage> {
                 : CustomeRaisedButton(
                     title: 'Sign In',
                     colorsButton: mainColor,
-                    colorsText: Colors.white,
+                    colorsText: Colors.black,
                     onPressed: () {},
                   ),
           ),
