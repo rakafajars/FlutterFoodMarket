@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/shared/theme.dart';
+import 'package:flutter_food_market/ui/pages/auth/sign_up_page.dart';
 import 'package:flutter_food_market/ui/pages/general_page.dart';
-import 'package:flutter_food_market/ui/pages/sign_up_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_button.dart';
 import 'package:flutter_food_market/ui/widget/custom_textfield.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
