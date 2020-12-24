@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/shared/theme.dart';
+import 'package:flutter_food_market/ui/widget/food_cart.dart';
 import 'package:supercharged/supercharged.dart';
 
 class FoodPage extends StatefulWidget {
@@ -62,6 +63,7 @@ class _FoodPageState extends State<FoodPage> {
               ),
             ),
             //// List Of Food
+            FoodCard(),
             //// List OF Fod (Tabs)
           ],
         )
