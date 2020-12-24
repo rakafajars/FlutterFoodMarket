@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:supercharged/supercharged.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class GeneralPage extends StatelessWidget {
   final String title;
@@ -29,7 +28,7 @@ class GeneralPage extends StatelessWidget {
           ),
           SafeArea(
             child: Container(
-              color: backColorButton ?? "FAFAFC".toColor(),
+              color: backColorButton ?? Colors.white,
             ),
           ),
           SafeArea(
@@ -38,9 +37,6 @@ class GeneralPage extends StatelessWidget {
                 Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(
-                        bottom: defaultMargin,
-                      ),
                       padding: EdgeInsets.symmetric(
                         horizontal: defaultMargin,
                       ),
@@ -85,6 +81,11 @@ class GeneralPage extends StatelessWidget {
                           )
                         ],
                       ),
+                    ),
+                    Container(
+                      height: 24,
+                      width: double.infinity,
+                      color: "FAFAFC".toColor(),
                     ),
                     child ?? SizedBox(),
                   ],
