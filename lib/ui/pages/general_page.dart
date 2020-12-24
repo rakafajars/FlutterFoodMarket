@@ -8,6 +8,7 @@ class GeneralPage extends StatelessWidget {
   final Function onBackButtonPressed;
   final Widget child;
   final Color backColorButton;
+  final EdgeInsetsGeometry paddingListView;
 
   const GeneralPage({
     Key key,
@@ -16,6 +17,7 @@ class GeneralPage extends StatelessWidget {
     this.onBackButtonPressed,
     this.child,
     this.backColorButton,
+    this.paddingListView,
   }) : super(key: key);
 
   @override
@@ -33,6 +35,7 @@ class GeneralPage extends StatelessWidget {
           ),
           SafeArea(
             child: ListView(
+              padding: paddingListView,
               children: [
                 Column(
                   children: [
@@ -46,16 +49,23 @@ class GeneralPage extends StatelessWidget {
                       child: Row(
                         children: [
                           onBackButtonPressed != null
-                              ? Container(
-                                  width: 24,
-                                  height: 24,
-                                  margin: EdgeInsets.only(
-                                    right: 26,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        'assets/back_arrow.png',
+                              ? GestureDetector(
+                                  onTap: () {
+                                    if (onBackButtonPressed != null) {
+                                      onBackButtonPressed();
+                                    }
+                                  },
+                                  child: Container(
+                                    width: 24,
+                                    height: 24,
+                                    margin: EdgeInsets.only(
+                                      right: 26,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                          'assets/back_arrow.png',
+                                        ),
                                       ),
                                     ),
                                   ),

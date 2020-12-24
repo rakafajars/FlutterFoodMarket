@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/pages/general_page.dart';
+import 'package:flutter_food_market/ui/pages/sign_up_page.dart';
+import 'package:flutter_food_market/ui/widget/custome_button.dart';
+import 'package:flutter_food_market/ui/widget/textfield_custome.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -19,148 +23,66 @@ class _SignInPageState extends State<SignInPage> {
       subTitle: 'Find your best ever meal',
       child: Column(
         children: [
-          Container(
-            width: double.infinity,
+          CustomeTextFieldTitle(
+            title: 'Email Address',
             margin: EdgeInsets.fromLTRB(
               defaultMargin,
               26,
               defaultMargin,
               6,
             ),
-            child: Text(
-              'Email Address',
-              style: textFontWeight500.copyWith(
-                color: Colors.black,
-                fontSize: 16,
-              ),
-            ),
           ),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(
-              horizontal: defaultMargin,
+          CustomeTextField(
+            controller: emailController,
+            hintFieldStyle: TextStyle(
+              color: greyColor,
             ),
-            padding: EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: Colors.black,
-              ),
-            ),
-            child: TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintStyle: TextStyle(
-                  color: greyColor,
-                ),
-                hintText: 'Type your email address',
-              ),
-            ),
+            hintFieldText: 'Type your email address',
           ),
-          Container(
-            width: double.infinity,
+          CustomeTextFieldTitle(
+            title: 'Password',
             margin: EdgeInsets.fromLTRB(
               defaultMargin,
               16,
               defaultMargin,
               6,
             ),
-            child: Text(
-              'Password',
-              style: textFontWeight500.copyWith(
-                color: Colors.black,
-                fontSize: 16,
-              ),
-            ),
           ),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(
-              horizontal: defaultMargin,
+          CustomeTextField(
+            controller: passwordController,
+            hintFieldStyle: TextStyle(
+              color: greyColor,
             ),
-            padding: EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: Colors.black,
-              ),
-            ),
-            child: TextField(
-              controller: passwordController,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintStyle: TextStyle(
-                  color: greyColor,
-                ),
-                hintText: 'Type your password address',
-              ),
-            ),
+            hintFieldText: 'Type your password',
           ),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.only(
-              top: defaultMargin,
-            ),
-            height: 45,
-            padding: EdgeInsets.symmetric(
-              horizontal: defaultMargin,
-            ),
+          CustomeButton(
             child: isLoading
                 ? SpinKitFadingCircle(
                     size: 45,
                     color: mainColor,
                   )
-                : RaisedButton(
-                    elevation: 0.0,
-                    color: mainColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        8,
-                      ),
-                    ),
+                : CustomeRaisedButton(
+                    title: 'Sign In',
+                    colorsButton: mainColor,
+                    colorsText: Colors.white,
                     onPressed: () {},
-                    child: Text(
-                      'Sign In',
-                      style: textFontWeight500.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
                   ),
           ),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.only(
-              top: defaultMargin,
-            ),
-            height: 45,
-            padding: EdgeInsets.symmetric(
-              horizontal: defaultMargin,
-            ),
+          CustomeButton(
             child: isLoading
                 ? SpinKitFadingCircle(
                     size: 45,
                     color: mainColor,
                   )
-                : RaisedButton(
-                    elevation: 0.0,
-                    color: greyColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        8,
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: Text(
-                      'Create New Account',
-                      style: textFontWeight500.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
+                : CustomeRaisedButton(
+                    title: 'Create New Account',
+                    colorsButton: greyColor,
+                    colorsText: Colors.white,
+                    onPressed: () {
+                      Get.to(
+                        SignUpPage(),
+                      );
+                    },
                   ),
           ),
         ],
