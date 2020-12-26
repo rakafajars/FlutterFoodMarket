@@ -7,4 +7,7 @@
 ## Address Page
 ![image](https://user-images.githubusercontent.com/73903697/103099824-8e0dff80-4642-11eb-8505-216ea93e84ab.png)
 ## Home Page
-![image](https://user-images.githubusercontent.com/73903697/103099853-af6eeb80-4642-11eb-965d-19a1c9ca8170.png)
+![image](https://user-images.githubusercontent.com/73903697/103156091-d0b51080-47d7-11eb-9d71-9744eb772b7d.png)
+## Detail Food Page
+![image](https://user-images.githubusercontent.com/73903697/103156079-b67b3280-47d7-11eb-9846-e41b5409e690.png)
+
