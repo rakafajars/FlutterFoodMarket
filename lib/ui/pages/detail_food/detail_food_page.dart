@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/model/transaction.dart';
 import 'package:flutter_food_market/shared/theme.dart';
+import 'package:flutter_food_market/ui/widget/custom_button.dart';
 import 'package:flutter_food_market/ui/widget/rating_stars.dart';
 import 'package:supercharged/supercharged.dart';
+import 'package:intl/intl.dart';
 
 class FoodDetailPage extends StatefulWidget {
   final Function onBackButtonPressed;
@@ -97,6 +99,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                         color: Colors.white,
                       ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,11 +107,15 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    widget.transaction.food.name,
-                                    style: textFontWeight400.copyWith(
-                                      color: '020202'.toColor(),
-                                      fontSize: 16,
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width - 160,
+                                    child: Text(
+                                      widget.transaction.food.name,
+                                      style: textFontWeight400.copyWith(
+                                        color: '020202'.toColor(),
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
@@ -175,6 +182,82 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                     ),
                                   ),
                                 ],
+                              ),
+                            ],
+                          ),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(0, 14, 0, 16),
+                            child: Text(
+                              widget.transaction.food.description,
+                              style: textFontWeight400.copyWith(
+                                color: greyColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'Ingredients:',
+                            style: textFontWeight400.copyWith(
+                              color: '020202'.toColor(),
+                              fontSize: 14,
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(0, 4, 0, 41),
+                            child: Text(
+                              widget.transaction.food.ingredients,
+                              style: textFontWeight400.copyWith(
+                                color: greyColor,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Total Price',
+                                    style: textFontWeight400.copyWith(
+                                      color: greyColor,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  Text(
+                                    NumberFormat.currency(
+                                      locale: 'id-ID',
+                                      symbol: 'IDR ',
+                                      decimalDigits: 0,
+                                    ).format(
+                                      quantity * widget.transaction.food.price,
+                                    ),
+                                    style: textFontWeight400.copyWith(
+                                      color: '020202'.toColor(),
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: 163,
+                                height: 45,
+                                child: RaisedButton(
+                                  onPressed: () {},
+                                  color: mainColor,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Text(
+                                    'Order Now',
+                                    style: textFontWeight500.copyWith(
+                                      color: '020202'.toColor(),
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
