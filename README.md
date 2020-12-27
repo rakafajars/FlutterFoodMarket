@@ -10,4 +10,11 @@
 ![image](https://user-images.githubusercontent.com/73903697/103156091-d0b51080-47d7-11eb-9d71-9744eb772b7d.png)
 ## Detail Food Page
 ![image](https://user-images.githubusercontent.com/73903697/103156079-b67b3280-47d7-11eb-9846-e41b5409e690.png)
-
+## Payment Page
+![image](https://user-images.githubusercontent.com/73903697/103169963-f2afa100-4872-11eb-9d7a-fff71082cc03.png)
+## Order Empty Page
+![image](https://user-images.githubusercontent.com/73903697/103169976-1246c980-4873-11eb-925e-b8b882b0fcf9.png)
+## Success Order Food Page
+![image](https://user-images.githubusercontent.com/73903697/103169981-28548a00-4873-11eb-807d-ca183c190f6d.png)
+## Success Sign Up Page
+![image](https://user-images.githubusercontent.com/73903697/103169992-386c6980-4873-11eb-9bce-77c05cadbb84.png)
