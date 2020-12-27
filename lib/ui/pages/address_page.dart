@@ -131,6 +131,9 @@ class _AddressPageState extends State<AddressPage> {
             ),
           ),
           CustomeButton(
+            margin: EdgeInsets.only(
+              top: defaultMargin,
+            ),
             child: CustomeRaisedButton(
               title: 'Sign Up Now',
               colorsButton: mainColor,

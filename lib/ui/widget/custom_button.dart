@@ -3,16 +3,19 @@ import 'package:flutter_food_market/shared/theme.dart';
 
 class CustomeButton extends StatelessWidget {
   final Widget child;
+  final EdgeInsetsGeometry margin;
 
-  const CustomeButton({Key key, this.child}) : super(key: key);
+  const CustomeButton({
+    Key key,
+    this.child,
+    this.margin,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.only(
-        top: defaultMargin,
-      ),
+      margin: margin,
       height: 45,
       padding: EdgeInsets.symmetric(
         horizontal: defaultMargin,
@@ -47,7 +50,7 @@ class CustomeRaisedButton extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: Text(
-        title,
+        title ?? '-',
         style: textFontWeight500.copyWith(
           color: colorsText,
         ),

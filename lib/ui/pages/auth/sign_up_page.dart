@@ -107,6 +107,9 @@ class _SignUpPageState extends State<SignUpPage> {
             hintFieldText: 'Type your password',
           ),
           CustomeButton(
+            margin: EdgeInsets.only(
+              top: defaultMargin,
+            ),
             child: CustomeRaisedButton(
               title: 'Continue',
               colorsButton: mainColor,

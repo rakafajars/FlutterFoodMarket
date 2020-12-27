@@ -57,6 +57,9 @@ class _SignInPageState extends State<SignInPage> {
             hintFieldText: 'Type your password',
           ),
           CustomeButton(
+            margin: EdgeInsets.only(
+              top: defaultMargin,
+            ),
             child: isLoading
                 ? SpinKitFadingCircle(
                     size: 45,
@@ -74,6 +77,9 @@ class _SignInPageState extends State<SignInPage> {
                   ),
           ),
           CustomeButton(
+            margin: EdgeInsets.only(
+              top: defaultMargin,
+            ),
             child: isLoading
                 ? SpinKitFadingCircle(
                     size: 45,
