@@ -42,7 +42,7 @@ class _MainPageState extends State<MainPage> {
                 Center(
                   child: IllustrationPage(
                     title: 'Ouch! Hungty',
-                    subTitle: 'Seems like you have not ordered any food yet',
+                    subTitle: 'Seems like you have not\nordered any food yet',
                     picturePath: 'assets/love_burger.png',
                     buttonTap1: () {},
                     buttonTitle1: 'Find Foods',

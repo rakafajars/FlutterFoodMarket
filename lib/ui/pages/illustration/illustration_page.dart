@@ -72,16 +72,12 @@ class IllustrationPage extends StatelessWidget {
           ),
           (buttonTap2 == null)
               ? SizedBox()
-              : Container(
-                  margin: EdgeInsets.only(
-                    top: 30,
-                    bottom: 12,
-                  ),
-                  width: 200,
+              : SizedBox(
                   height: 45,
+                  width: 200,
                   child: CustomeRaisedButton(
                     colorsButton: greyColor,
-                    title: buttonTitle2,
+                    title: buttonTitle2 ?? "title",
                     colorsText: Colors.white,
                     onPressed: buttonTap2,
                   ),
