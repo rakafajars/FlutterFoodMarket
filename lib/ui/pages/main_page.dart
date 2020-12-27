@@ -3,6 +3,8 @@ import 'package:flutter_food_market/ui/pages/home/food_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_bottom_navbar.dart';
 import 'package:supercharged/supercharged.dart';
 
+import 'illustration/illustration_page.dart';
+
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -38,7 +40,13 @@ class _MainPageState extends State<MainPage> {
                   child: FoodPage(),
                 ),
                 Center(
-                  child: Text('Order'),
+                  child: IllustrationPage(
+                    title: 'Ouch! Hungty',
+                    subTitle: 'Seems like you have not ordered any food yet',
+                    picturePath: 'assets/love_burger.png',
+                    buttonTap1: () {},
+                    buttonTitle1: 'Find Foods',
+                  ),
                 ),
                 Center(
                   child: Text('Profile'),
