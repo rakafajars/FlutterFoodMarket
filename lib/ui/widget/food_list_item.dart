@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_market/model/food.dart';
 import 'package:flutter_food_market/shared/theme.dart';
-import 'package:flutter_food_market/ui/widget/rating_stars.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:intl/intl.dart';
 
 class FoodListItem extends StatelessWidget {
-  final Food food;
+  final String pictureFood;
+  final String pictureNameFood;
+  final int priceFood;
   final double itemWidth;
+  final Widget childCustom;
 
   const FoodListItem({
     Key key,
-    @required this.food,
     this.itemWidth,
+    @required this.childCustom,
+    this.pictureFood,
+    this.pictureNameFood,
+    this.priceFood,
   }) : super(key: key);
 
   @override
@@ -29,7 +33,7 @@ class FoodListItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             image: DecorationImage(
               image: NetworkImage(
-                food.picturePath,
+                pictureFood,
               ),
               fit: BoxFit.cover,
             ),
@@ -42,7 +46,7 @@ class FoodListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                food.name,
+                pictureNameFood,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: textFontWeight400.copyWith(
@@ -54,7 +58,7 @@ class FoodListItem extends StatelessWidget {
                 NumberFormat.currency(
                         symbol: 'IDR ', decimalDigits: 0, locale: 'id-ID')
                     .format(
-                  food.price,
+                  priceFood,
                 ),
                 style: textFontWeight400.copyWith(
                   color: greyColor,
@@ -64,9 +68,7 @@ class FoodListItem extends StatelessWidget {
             ],
           ),
         ),
-        RatinStars(
-          rate: food.rate,
-        ),
+        childCustom,
       ],
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/widget/custom_tab_bar.dart';
 import 'package:flutter_food_market/ui/widget/food_cart.dart';
 import 'package:flutter_food_market/ui/widget/food_list_item.dart';
+import 'package:flutter_food_market/ui/widget/rating_stars.dart';
 import 'package:supercharged/supercharged.dart';
 
 class FoodPage extends StatefulWidget {
@@ -134,8 +135,13 @@ class _FoodPageState extends State<FoodPage> {
                                   16,
                                 ),
                                 child: FoodListItem(
-                                  food: e,
+                                  pictureFood: e.picturePath,
+                                  pictureNameFood: e.name,
+                                  priceFood: e.price,
                                   itemWidth: listItemWidth,
+                                  childCustom: RatinStars(
+                                    rate: e.rate,
+                                  ),
                                 ),
                               ),
                             )

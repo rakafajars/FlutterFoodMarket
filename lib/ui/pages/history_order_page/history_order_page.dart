@@ -3,6 +3,7 @@ import 'package:flutter_food_market/model/transaction.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/pages/illustration/illustration_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_tab_bar.dart';
+import 'package:flutter_food_market/ui/widget/food_list_item.dart';
 import 'package:supercharged/supercharged.dart';
 
 class HistoryOrderPage extends StatefulWidget {
@@ -41,6 +42,8 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
         buttonTitle1: 'Find Foods',
       );
     } else {
+      double listItemWidth =
+          MediaQuery.of(context).size.width - 2 * defaultMargin;
       return ListView(
         children: [
           Column(
@@ -97,8 +100,63 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
                     Column(
                       children: (selectedIndex == 0 ? inProgress : past)
                           .map(
-                            (e) => Text(
-                              e.food.name,
+                            (e) => Padding(
+                              padding: EdgeInsets.only(
+                                left: defaultMargin,
+                                right: defaultMargin,
+                                bottom: 16,
+                              ),
+                              child: FoodListItem(
+                                pictureFood: e.food.picturePath,
+                                pictureNameFood: e.food.name,
+                                priceFood: e.food.price,
+                                itemWidth: listItemWidth,
+                                childCustom: SizedBox(
+                                  width: 110,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        convertDateTime(e.dateTime),
+                                        style: textFontWeight400.copyWith(
+                                          fontSize: 12,
+                                          color: greyColor,
+                                        ),
+                                      ),
+                                      (e.status == TransactionStatus.cancelled)
+                                          ? Text(
+                                              'Canceled',
+                                              style: textFontWeight400.copyWith(
+                                                fontSize: 12,
+                                                color: Colors.red,
+                                              ),
+                                            )
+                                          : (e.status ==
+                                                  TransactionStatus.pending)
+                                              ? Text(
+                                                  'Pending',
+                                                  style: textFontWeight400
+                                                      .copyWith(
+                                                    fontSize: 12,
+                                                    color: mainColor,
+                                                  ),
+                                                )
+                                              : (e.status ==
+                                                      TransactionStatus
+                                                          .on_delivery)
+                                                  ? Text(
+                                                      'On Delivery',
+                                                      style: textFontWeight400
+                                                          .copyWith(
+                                                        fontSize: 12,
+                                                        color: Colors.green,
+                                                      ),
+                                                    )
+                                                  : SizedBox()
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           )
                           .toList(),
@@ -111,5 +169,48 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
         ],
       );
     }
+  }
+
+  String convertDateTime(DateTime dateTime) {
+    String month;
+    switch (dateTime.month) {
+      case 1:
+        month = 'Jan';
+        break;
+      case 2:
+        month = 'Feb';
+        break;
+      case 3:
+        month = 'Mar';
+        break;
+      case 4:
+        month = 'Apr';
+        break;
+      case 5:
+        month = 'Mei';
+        break;
+      case 6:
+        month = 'Jun';
+        break;
+      case 7:
+        month = 'Jul';
+        break;
+      case 8:
+        month = 'Aug';
+        break;
+      case 9:
+        month = 'Sep';
+        break;
+      case 10:
+        month = 'OKt';
+        break;
+      case 11:
+        month = 'Nov';
+        break;
+      default:
+        month = 'Des';
+    }
+
+    return month + ' ${dateTime.day}, ${dateTime.hour}:${dateTime.minute}';
   }
 }
