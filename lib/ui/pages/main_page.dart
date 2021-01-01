@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_market/ui/pages/history_order_page/history_order_page.dart';
 import 'package:flutter_food_market/ui/pages/home/food_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_bottom_navbar.dart';
 import 'package:supercharged/supercharged.dart';
@@ -40,13 +41,7 @@ class _MainPageState extends State<MainPage> {
                   child: FoodPage(),
                 ),
                 Center(
-                  child: IllustrationPage(
-                    title: 'Ouch! Hungty',
-                    subTitle: 'Seems like you have not\nordered any food yet',
-                    picturePath: 'assets/love_burger.png',
-                    buttonTap1: () {},
-                    buttonTitle1: 'Find Foods',
-                  ),
+                  child: HistoryOrderPage(),
                 ),
                 Center(
                   child: Text('Profile'),

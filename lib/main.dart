@@ -4,6 +4,8 @@ import 'package:flutter_food_market/model/transaction.dart';
 import 'package:flutter_food_market/model/user.dart';
 import 'package:flutter_food_market/ui/pages/main_page.dart';
 import 'package:flutter_food_market/ui/pages/payment/payment_page.dart';
+import 'package:flutter_food_market/ui/pages/success_order_page.dart';
+import 'package:flutter_food_market/ui/pages/success_sign_up_page.dart';
 import 'package:get/get.dart';
 
 void main() {
