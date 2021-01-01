@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/ui/pages/history_order_page/history_order_page.dart';
 import 'package:flutter_food_market/ui/pages/home/food_page.dart';
+import 'package:flutter_food_market/ui/pages/profile/profile_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_bottom_navbar.dart';
 import 'package:supercharged/supercharged.dart';
 
@@ -44,7 +45,7 @@ class _MainPageState extends State<MainPage> {
                   child: HistoryOrderPage(),
                 ),
                 Center(
-                  child: Text('Profile'),
+                  child: ProfilePage(),
                 ),
               ],
             ),

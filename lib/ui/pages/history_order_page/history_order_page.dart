@@ -52,7 +52,6 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
               Container(
                 height: 100,
                 width: double.infinity,
-                margin: EdgeInsets.only(bottom: defaultMargin),
                 padding: EdgeInsets.symmetric(horizontal: defaultMargin),
                 color: Colors.white,
                 child: Column(
