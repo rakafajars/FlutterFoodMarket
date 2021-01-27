@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_market/cubit/user/user_cubit.dart';
 import 'package:flutter_food_market/model/user.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/widget/custom_tab_bar.dart';
 import 'package:supercharged/supercharged.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -43,7 +45,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       image: NetworkImage(
-                        mockUser.picturePath,
+                        (context.bloc<UserCubit>().state as UserLoadSuccess)
+                            .user
+                            .picturePath,
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -51,14 +55,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Text(
-                mockUser.name,
+                (context.bloc<UserCubit>().state as UserLoadSuccess).user.name,
                 style: textFontWeight500.copyWith(
                   fontSize: 18,
                   color: '020202'.toColor(),
                 ),
               ),
               Text(
-                mockUser.email,
+                (context.bloc<UserCubit>().state as UserLoadSuccess).user.email,
                 style: textFontWeight300.copyWith(
                   fontSize: 14,
                   color: greyColor,

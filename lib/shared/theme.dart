@@ -6,10 +6,9 @@ const double defaultMargin = 24;
 
 Color mainColor = "FFC700".toColor();
 Color greyColor = "8D92A3".toColor();
+Color pinkColor = "D9435E".toColor();
 
-TextStyle textFontWeightNormal = GoogleFonts.poppins(
-  fontWeight: FontWeight.normal,
-);
+TextStyle textFontWeightNormal = GoogleFonts.poppins();
 
 TextStyle textFontWeightBold = GoogleFonts.poppins(
   fontWeight: FontWeight.bold,

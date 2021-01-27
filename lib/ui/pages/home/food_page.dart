@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_market/cubit/user/user_cubit.dart';
 import 'package:flutter_food_market/model/food.dart';
+import 'package:flutter_food_market/model/transaction.dart';
 import 'package:flutter_food_market/shared/theme.dart';
+import 'package:flutter_food_market/ui/pages/detail_food/detail_food_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_tab_bar.dart';
 import 'package:flutter_food_market/ui/widget/food_cart.dart';
 import 'package:flutter_food_market/ui/widget/food_list_item.dart';
 import 'package:flutter_food_market/ui/widget/rating_stars.dart';
 import 'package:supercharged/supercharged.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 class FoodPage extends StatefulWidget {
   @override
@@ -61,7 +66,9 @@ class _FoodPageState extends State<FoodPage> {
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
                         image: NetworkImage(
-                          'https://cdn.idntimes.com/content-images/community/2020/11/14-b1fe04b0ceee0bcd7cd47663ff17b2e9.jpg',
+                          (context.bloc<UserCubit>().state as UserLoadSuccess)
+                              .user
+                              .picturePath,
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -85,8 +92,25 @@ class _FoodPageState extends State<FoodPage> {
                         .map((e) => Padding(
                               padding:
                                   const EdgeInsets.only(right: defaultMargin),
-                              child: FoodCard(
-                                food: e,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.to(
+                                    FoodDetailPage(
+                                      transaction: Transaction(
+                                        food: e,
+                                        user: (context.bloc<UserCubit>().state
+                                                as UserLoadSuccess)
+                                            .user,
+                                      ),
+                                      onBackButtonPressed: () {
+                                        Get.back();
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: FoodCard(
+                                  food: e,
+                                ),
                               ),
                             ))
                         .toList(),
