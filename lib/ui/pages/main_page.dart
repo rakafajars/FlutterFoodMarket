@@ -5,7 +5,6 @@ import 'package:flutter_food_market/ui/pages/profile/profile_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_bottom_navbar.dart';
 import 'package:supercharged/supercharged.dart';
 
-import 'illustration/illustration_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
