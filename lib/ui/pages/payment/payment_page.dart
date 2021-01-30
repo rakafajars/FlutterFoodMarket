@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_market/model/transaction.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/pages/general_page.dart';
+import 'package:flutter_food_market/ui/pages/success_order_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_button.dart';
+import 'package:flutter_food_market/ui/widget/loading_indicator.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_food_market/cubit/transaction/transaction_cubit.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class PaymentPage extends StatefulWidget {
   final Transaction transaction;
@@ -15,6 +21,7 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return GeneralPage(
@@ -23,7 +30,9 @@ class _PaymentPageState extends State<PaymentPage> {
       ),
       title: 'Payment',
       subTitle: 'You deserve better meal',
-      onBackButtonPressed: () {},
+      onBackButtonPressed: () {
+        Get.back();
+      },
       backColorButton: 'FAFAFC'.toColor(),
       child: Stack(
         children: [
@@ -243,9 +252,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               symbol: 'IDR ',
                               decimalDigits: 0,
                             ).format(
-                              widget.transaction.quantity *
-                                  widget.transaction.food.price *
-                                  0.1,
+                              widget.transaction.total * 0.1,
                             ),
                             style: textFontWeight400.copyWith(
                               fontSize: 14,
@@ -285,10 +292,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               symbol: 'IDR ',
                               decimalDigits: 0,
                             ).format(
-                              widget.transaction.food.price *
-                                      widget.transaction.quantity *
-                                      1.1 +
-                                  50000,
+                              widget.transaction.total * 1.1 + 50000,
                             ),
                             style: textFontWeight500.copyWith(
                               fontSize: 14,
@@ -498,14 +502,61 @@ class _PaymentPageState extends State<PaymentPage> {
                   ],
                 ),
               ),
-              CustomeButton(
-                child: CustomeRaisedButton(
-                  colorsText: Colors.black,
-                  title: 'Checkout Now',
-                  colorsButton: mainColor,
-                  onPressed: () {},
-                ),
-              ),
+              (isLoading)
+                  ? Center(child: LoadingIndicator())
+                  : CustomeButton(
+                      child: CustomeRaisedButton(
+                        colorsText: Colors.black,
+                        title: 'Checkout Now',
+                        colorsButton: mainColor,
+                        onPressed: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          bool result = await context
+                              .bloc<TransactionCubit>()
+                              .submitTransaction(
+                                widget.transaction.copyWith(
+                                  dateTime: DateTime.now(),
+                                  total:
+                                      (widget.transaction.total * 1.1).toInt() +
+                                          50000,
+                                ),
+                              );
+
+                          if (result == true) {
+                            Get.to(
+                              SuccessOrderPage(),
+                            );
+                          } else {
+                            setState(() {
+                              isLoading = false;
+                            });
+                            Get.snackbar(
+                              "",
+                              "",
+                              backgroundColor: pinkColor,
+                              icon: Icon(
+                                MdiIcons.closeCircleOutline,
+                                color: Colors.white,
+                              ),
+                              titleText: Text(
+                                'Transaction Failed',
+                                style: textFontWeight600.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              messageText: Text(
+                                'Please try again later.',
+                                style: textFontWeightNormal.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
             ],
           ),
         ],

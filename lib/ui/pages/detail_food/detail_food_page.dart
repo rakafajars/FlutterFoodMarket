@@ -3,9 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/model/transaction.dart';
 import 'package:flutter_food_market/shared/theme.dart';
+import 'package:flutter_food_market/ui/pages/payment/payment_page.dart';
 import 'package:flutter_food_market/ui/widget/rating_stars.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:intl/intl.dart';
+import 'package:get/get.dart';
 
 class FoodDetailPage extends StatefulWidget {
   final Function onBackButtonPressed;
@@ -243,7 +245,18 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                 width: 163,
                                 height: 45,
                                 child: RaisedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Get.to(
+                                      PaymentPage(
+                                        transaction:
+                                            widget.transaction.copyWith(
+                                          quantity: quantity,
+                                          total: quantity *
+                                              widget.transaction.food.price,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   color: mainColor,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(

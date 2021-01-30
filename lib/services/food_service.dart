@@ -3,10 +3,14 @@ import 'package:flutter_food_market/model/food.dart';
 
 class FoodService {
   static Future<ApiReturnValue<List<Food>>> getFood() async {
-    await Future.delayed(Duration(
-      milliseconds: 500,
-    ),);
+    await Future.delayed(
+      Duration(
+        milliseconds: 500,
+      ),
+    );
 
-    return ApiReturnValue(value: mockFoods);
+    return ApiReturnValue(
+      value: mockFoods,
+    );
   }
 }
