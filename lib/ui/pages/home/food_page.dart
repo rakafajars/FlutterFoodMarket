@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_food_market/cubit/food/food_cubit.dart';
 import 'package:flutter_food_market/cubit/user/user_cubit.dart';
 import 'package:flutter_food_market/model/food.dart';
 import 'package:flutter_food_market/model/transaction.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_food_market/ui/pages/detail_food/detail_food_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_tab_bar.dart';
 import 'package:flutter_food_market/ui/widget/food_cart.dart';
 import 'package:flutter_food_market/ui/widget/food_list_item.dart';
+import 'package:flutter_food_market/ui/widget/loading_indicator.dart';
 import 'package:flutter_food_market/ui/widget/rating_stars.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,41 +83,51 @@ class _FoodPageState extends State<FoodPage> {
             Container(
               height: 258,
               width: double.infinity,
-              child: ListView(
-                padding: EdgeInsets.only(
-                  left: defaultMargin,
-                ),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  Row(
-                    children: mockFoods
-                        .map((e) => Padding(
-                              padding:
-                                  const EdgeInsets.only(right: defaultMargin),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Get.to(
-                                    FoodDetailPage(
-                                      transaction: Transaction(
-                                        food: e,
-                                        user: (context.bloc<UserCubit>().state
-                                                as UserLoadSuccess)
-                                            .user,
-                                      ),
-                                      onBackButtonPressed: () {
-                                        Get.back();
-                                      },
-                                    ),
-                                  );
-                                },
-                                child: FoodCard(
-                                  food: e,
-                                ),
-                              ),
-                            ))
-                        .toList(),
-                  ),
-                ],
+              child: BlocBuilder<FoodCubit, FoodState>(
+                builder: (context, state) {
+                  return (state is FoodLoadSuccess)
+                      ? ListView(
+                          padding: EdgeInsets.only(
+                            left: defaultMargin,
+                          ),
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            Row(
+                              children: state.foods
+                                  .map((e) => Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: defaultMargin),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Get.to(
+                                              FoodDetailPage(
+                                                transaction: Transaction(
+                                                  food: e,
+                                                  user: (context
+                                                              .bloc<UserCubit>()
+                                                              .state
+                                                          as UserLoadSuccess)
+                                                      .user,
+                                                ),
+                                                onBackButtonPressed: () {
+                                                  Get.back();
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          child: FoodCard(
+                                            food: e,
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                            ),
+                          ],
+                        )
+                      : Center(
+                          child: LoadingIndicator(),
+                        );
+                },
               ),
             ),
             //// List OF Fod (Tabs)
@@ -140,37 +152,52 @@ class _FoodPageState extends State<FoodPage> {
                   SizedBox(
                     height: 16,
                   ),
-                  Builder(
-                    builder: (_) {
-                      List<Food> foods = (selectedIndex == 0)
-                          ? mockFoods
-                          : (selectedIndex == 1)
-                              ? []
-                              : [];
-
-                      return Column(
-                        children: foods
-                            .map(
-                              (e) => Padding(
-                                padding: EdgeInsets.fromLTRB(
-                                  defaultMargin,
-                                  0,
-                                  defaultMargin,
-                                  16,
-                                ),
-                                child: FoodListItem(
-                                  pictureFood: e.picturePath,
-                                  pictureNameFood: e.name,
-                                  priceFood: e.price,
-                                  itemWidth: listItemWidth,
-                                  childCustom: RatinStars(
-                                    rate: e.rate,
+                  BlocBuilder<FoodCubit, FoodState>(
+                    builder: (context, state) {
+                      if (state is FoodLoadSuccess) {
+                        return Builder(
+                          builder: (_) {
+                            List<Food> foods = state.foods
+                                .where(
+                                  (element) => element.types.contains(
+                                    (selectedIndex == 0)
+                                        ? FoodType.new_food
+                                        : (selectedIndex == 1)
+                                            ? FoodType.popular
+                                            : FoodType.recommended,
                                   ),
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      );
+                                )
+                                .toList();
+                            return Column(
+                              children: foods
+                                  .map(
+                                    (e) => Padding(
+                                      padding: EdgeInsets.fromLTRB(
+                                        defaultMargin,
+                                        0,
+                                        defaultMargin,
+                                        16,
+                                      ),
+                                      child: FoodListItem(
+                                        pictureFood: e.picturePath,
+                                        pictureNameFood: e.name,
+                                        priceFood: e.price,
+                                        itemWidth: listItemWidth,
+                                        childCustom: RatinStars(
+                                          rate: e.rate,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            );
+                          },
+                        );
+                      } else {
+                        return Center(
+                          child: LoadingIndicator(),
+                        );
+                      }
                     },
                   ),
                 ],
