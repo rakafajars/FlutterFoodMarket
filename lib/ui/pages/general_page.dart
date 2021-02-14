@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/shared/theme.dart';
+import 'package:relative_scale/relative_scale.dart';
 import 'package:supercharged/supercharged.dart';
 
-class GeneralPage extends StatelessWidget {
+class GeneralPage extends StatefulWidget {
   final String title;
   final String subTitle;
   final Function onBackButtonPressed;
@@ -21,7 +22,14 @@ class GeneralPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _GeneralPageState createState() => _GeneralPageState();
+}
+
+class _GeneralPageState extends State<GeneralPage> with RelativeScale {
+  @override
   Widget build(BuildContext context) {
+    initRelativeScaler(context);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -30,12 +38,12 @@ class GeneralPage extends StatelessWidget {
           ),
           SafeArea(
             child: Container(
-              color: backColorButton ?? Colors.white,
+              color: widget.backColorButton ?? Colors.white,
             ),
           ),
           SafeArea(
             child: ListView(
-              padding: paddingListView,
+              padding: widget.paddingListView,
               children: [
                 Column(
                   children: [
@@ -44,20 +52,20 @@ class GeneralPage extends StatelessWidget {
                         horizontal: defaultMargin,
                       ),
                       width: double.infinity,
-                      height: 100,
+                      height: sy(80),
                       color: Colors.white,
                       child: Row(
                         children: [
-                          onBackButtonPressed != null
+                          widget.onBackButtonPressed != null
                               ? GestureDetector(
                                   onTap: () {
-                                    if (onBackButtonPressed != null) {
-                                      onBackButtonPressed();
+                                    if (widget.onBackButtonPressed != null) {
+                                      widget.onBackButtonPressed();
                                     }
                                   },
                                   child: Container(
-                                    width: 24,
-                                    height: 24,
+                                    width: sy(22),
+                                    height: sy(22),
                                     margin: EdgeInsets.only(
                                       right: 26,
                                     ),
@@ -76,13 +84,13 @@ class GeneralPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                title,
+                                widget.title,
                                 style: textFontWeight500.copyWith(
-                                  fontSize: 22,
+                                  fontSize: sy(20),
                                 ),
                               ),
                               Text(
-                                subTitle,
+                                widget.subTitle,
                                 style: textFontWeight300.copyWith(
                                   color: greyColor,
                                 ),
@@ -93,11 +101,11 @@ class GeneralPage extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      height: 24,
+                      height: sy(22),
                       width: double.infinity,
                       color: "FAFAFC".toColor(),
                     ),
-                    child ?? SizedBox(),
+                    widget.child ?? SizedBox(),
                   ],
                 ),
               ],

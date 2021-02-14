@@ -6,6 +6,7 @@ import 'package:flutter_food_market/ui/pages/illustration/illustration_page.dart
 import 'package:flutter_food_market/ui/widget/custom_tab_bar.dart';
 import 'package:flutter_food_market/ui/widget/food_list_item.dart';
 import 'package:flutter_food_market/ui/widget/loading_indicator.dart';
+import 'package:relative_scale/relative_scale.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,12 +15,15 @@ class HistoryOrderPage extends StatefulWidget {
   _HistoryOrderPageState createState() => _HistoryOrderPageState();
 }
 
-class _HistoryOrderPageState extends State<HistoryOrderPage> {
+class _HistoryOrderPageState extends State<HistoryOrderPage>
+    with RelativeScale {
   // posisi tab
   int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    initRelativeScaler(context);
+
     return BlocBuilder<TransactionCubit, TransactionState>(
       builder: (context, state) {
         if (state is TransactionLoadSuccess) {
@@ -40,7 +44,7 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
                   children: [
                     // TODO Head Bar
                     Container(
-                      height: 100,
+                      height: sy(80),
                       width: double.infinity,
                       padding: EdgeInsets.symmetric(horizontal: defaultMargin),
                       color: Colors.white,
@@ -51,14 +55,14 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
                           Text(
                             'Your Orders',
                             style: textFontWeight500.copyWith(
-                              fontSize: 22,
+                              fontSize: sy(18),
                               color: '020202'.toColor(),
                             ),
                           ),
                           Text(
                             'Wait for the best meal',
                             style: textFontWeight300.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(10),
                               color: greyColor,
                             ),
                           ),
@@ -84,7 +88,7 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
                             },
                           ),
                           SizedBox(
-                            height: 16,
+                            height: sy(12),
                           ),
                           Builder(builder: (_) {
                             List<Transaction> transaction = (selectedIndex == 0)
@@ -122,7 +126,7 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
                                         priceFood: e.food.price,
                                         itemWidth: listItemWidth,
                                         childCustom: SizedBox(
-                                          width: 110,
+                                          width: sy(90),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.end,
@@ -131,7 +135,7 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
                                                 convertDateTime(e.dateTime),
                                                 style:
                                                     textFontWeight400.copyWith(
-                                                  fontSize: 12,
+                                                  fontSize: sy(10),
                                                   color: greyColor,
                                                 ),
                                               ),
@@ -142,7 +146,7 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
                                                       'Canceled',
                                                       style: textFontWeight400
                                                           .copyWith(
-                                                        fontSize: 12,
+                                                        fontSize: sy(10),
                                                         color: Colors.red,
                                                       ),
                                                     )
@@ -154,7 +158,7 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
                                                           style:
                                                               textFontWeight400
                                                                   .copyWith(
-                                                            fontSize: 12,
+                                                            fontSize: sy(10),
                                                             color: mainColor,
                                                           ),
                                                         )
@@ -166,7 +170,8 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
                                                               style:
                                                                   textFontWeight400
                                                                       .copyWith(
-                                                                fontSize: 12,
+                                                                fontSize:
+                                                                    sy(10),
                                                                 color: Colors
                                                                     .green,
                                                               ),

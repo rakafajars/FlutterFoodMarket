@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/widget/custom_button.dart';
+import 'package:relative_scale/relative_scale.dart';
 import 'package:supercharged/supercharged.dart';
 
-class IllustrationPage extends StatelessWidget {
+class IllustrationPage extends StatefulWidget {
   final String title;
   final String subTitle;
   final String picturePath;
@@ -24,34 +25,42 @@ class IllustrationPage extends StatelessWidget {
       : super(key: key);
 
   @override
+  _IllustrationPageState createState() => _IllustrationPageState();
+}
+
+class _IllustrationPageState extends State<IllustrationPage>
+    with RelativeScale {
+  @override
   Widget build(BuildContext context) {
+    initRelativeScaler(context);
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 150,
-            height: 150,
+            width: sy(130),
+            height: sy(130),
             margin: EdgeInsets.only(bottom: 50),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  picturePath,
+                  widget.picturePath,
                 ),
               ),
             ),
           ),
           Text(
-            title,
+            widget.title,
             style: textFontWeight400.copyWith(
-              fontSize: 20,
+              fontSize: sy(18),
               color: '020202'.toColor(),
             ),
           ),
           Text(
-            subTitle,
+            widget.subTitle,
             style: textFontWeight300.copyWith(
-              fontSize: 14,
+              fontSize: sy(12),
               color: greyColor,
             ),
             textAlign: TextAlign.center,
@@ -61,25 +70,25 @@ class IllustrationPage extends StatelessWidget {
               top: 30,
               bottom: 12,
             ),
-            width: 200,
-            height: 45,
+            width: sy(165),
+            height: sy(40),
             child: CustomeRaisedButton(
               colorsButton: mainColor,
-              title: buttonTitle1,
+              title: widget.buttonTitle1,
               colorsText: '020202'.toColor(),
-              onPressed: buttonTap1,
+              onPressed: widget.buttonTap1,
             ),
           ),
-          (buttonTap2 == null)
+          (widget.buttonTap2 == null)
               ? SizedBox()
               : SizedBox(
-                  height: 45,
-                  width: 200,
+                  width: sy(165),
+                  height: sy(40),
                   child: CustomeRaisedButton(
                     colorsButton: greyColor,
-                    title: buttonTitle2 ?? "title",
+                    title: widget.buttonTitle2 ?? "title",
                     colorsText: Colors.white,
-                    onPressed: buttonTap2,
+                    onPressed: widget.buttonTap2,
                   ),
                 ),
         ],

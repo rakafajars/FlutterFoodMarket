@@ -5,13 +5,14 @@ import 'package:flutter_food_market/ui/pages/general_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_button.dart';
 import 'package:flutter_food_market/ui/widget/custom_textfield.dart';
 import 'package:get/get.dart';
+import 'package:relative_scale/relative_scale.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpPageState extends State<SignUpPage> with RelativeScale {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
@@ -19,6 +20,8 @@ class _SignUpPageState extends State<SignUpPage> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
+    initRelativeScaler(context);
+
     return GeneralPage(
       paddingListView: EdgeInsets.only(
         bottom: 6,
@@ -31,8 +34,8 @@ class _SignUpPageState extends State<SignUpPage> {
       child: Column(
         children: [
           Container(
-            width: 110,
-            height: 110,
+            width: sy(100),
+            height: sy(100),
             margin: EdgeInsets.only(
               top: 26,
             ),

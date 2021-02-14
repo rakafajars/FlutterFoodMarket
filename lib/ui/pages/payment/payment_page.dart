@@ -5,6 +5,7 @@ import 'package:flutter_food_market/ui/pages/general_page.dart';
 import 'package:flutter_food_market/ui/pages/success_order_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_button.dart';
 import 'package:flutter_food_market/ui/widget/loading_indicator.dart';
+import 'package:relative_scale/relative_scale.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
@@ -20,10 +21,12 @@ class PaymentPage extends StatefulWidget {
   _PaymentPageState createState() => _PaymentPageState();
 }
 
-class _PaymentPageState extends State<PaymentPage> {
+class _PaymentPageState extends State<PaymentPage> with RelativeScale {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
+    initRelativeScaler(context);
+
     return GeneralPage(
       paddingListView: EdgeInsets.only(
         bottom: 8,
@@ -39,7 +42,6 @@ class _PaymentPageState extends State<PaymentPage> {
           Column(
             children: [
               // TODO bagian atas
-
               Container(
                 margin: EdgeInsets.only(
                   bottom: defaultMargin,
@@ -55,12 +57,12 @@ class _PaymentPageState extends State<PaymentPage> {
                     Text(
                       'Item Ordered',
                       style: textFontWeight400.copyWith(
-                        fontSize: 14,
+                        fontSize: sy(12),
                         color: '020202'.toColor(),
                       ),
                     ),
                     SizedBox(
-                      height: 12,
+                      height: sy(10),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,8 +70,8 @@ class _PaymentPageState extends State<PaymentPage> {
                         Row(
                           children: [
                             Container(
-                              width: 60,
-                              height: 60,
+                              width: sy(40),
+                              height: sy(40),
                               margin: EdgeInsets.only(
                                 right: 12,
                               ),
@@ -86,8 +88,8 @@ class _PaymentPageState extends State<PaymentPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width - 189,
+                                  width: MediaQuery.of(context).size.width -
+                                      sy(160),
 
                                   // 2 * default margin (jarak border)
 
@@ -102,7 +104,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                     maxLines: 1,
                                     overflow: TextOverflow.clip,
                                     style: textFontWeight400.copyWith(
-                                      fontSize: 14,
+                                      fontSize: sy(12),
                                       color: '020202'.toColor(),
                                     ),
                                   ),
@@ -116,7 +118,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                     widget.transaction.food.price,
                                   ),
                                   style: textFontWeight400.copyWith(
-                                    fontSize: 13,
+                                    fontSize: sy(11),
                                     color: greyColor,
                                   ),
                                 )
@@ -127,7 +129,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         Text(
                           '${widget.transaction.quantity} item(s)',
                           style: textFontWeight400.copyWith(
-                            fontSize: 13,
+                            fontSize: sy(11),
                             color: greyColor,
                           ),
                         ),
@@ -141,7 +143,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       child: Text(
                         'Detail Transaction',
                         style: textFontWeight400.copyWith(
-                          fontSize: 14,
+                          fontSize: sy(12),
                           color: '020202'.toColor(),
                         ),
                       ),
@@ -157,7 +159,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             widget.transaction.food.name,
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: greyColor,
                             ),
                           ),
@@ -175,7 +177,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               widget.transaction.total,
                             ),
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: '020202'.toColor(),
                             ),
                             textAlign: TextAlign.right,
@@ -184,7 +186,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     ),
                     SizedBox(
-                      height: 6,
+                      height: sy(4),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,7 +199,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             'Driver',
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: greyColor,
                             ),
                           ),
@@ -215,7 +217,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               50000,
                             ),
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: '020202'.toColor(),
                             ),
                             textAlign: TextAlign.right,
@@ -237,7 +239,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             'TAX 10%',
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: greyColor,
                             ),
                           ),
@@ -255,7 +257,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               widget.transaction.total * 0.1,
                             ),
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: '020202'.toColor(),
                             ),
                             textAlign: TextAlign.right,
@@ -264,7 +266,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     ),
                     SizedBox(
-                      height: 6,
+                      height: sy(4),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -277,7 +279,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             'Total Price',
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: greyColor,
                             ),
                           ),
@@ -295,7 +297,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               widget.transaction.total * 1.1 + 50000,
                             ),
                             style: textFontWeight500.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: '1ABC9C'.toColor(),
                             ),
                             textAlign: TextAlign.right,
@@ -327,7 +329,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       child: Text(
                         'Deliver to:',
                         style: textFontWeight400.copyWith(
-                          fontSize: 14,
+                          fontSize: sy(12),
                           color: '020202'.toColor(),
                         ),
                       ),
@@ -343,7 +345,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             'Name',
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: greyColor,
                             ),
                           ),
@@ -355,7 +357,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             widget.transaction.user.name,
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: '020202'.toColor(),
                             ),
                             textAlign: TextAlign.right,
@@ -364,7 +366,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     ),
                     SizedBox(
-                      height: 6,
+                      height: sy(4),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -377,7 +379,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             'Phone No.',
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: greyColor,
                             ),
                           ),
@@ -389,7 +391,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             widget.transaction.user.phoneNumber,
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: '020202'.toColor(),
                             ),
                             textAlign: TextAlign.right,
@@ -398,7 +400,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     ),
                     SizedBox(
-                      height: 6,
+                      height: sy(4),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -411,7 +413,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             'Address',
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: greyColor,
                             ),
                           ),
@@ -423,7 +425,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             widget.transaction.user.address,
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: '020202'.toColor(),
                             ),
                             textAlign: TextAlign.right,
@@ -432,7 +434,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     ),
                     SizedBox(
-                      height: 6,
+                      height: sy(4),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -457,7 +459,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             widget.transaction.user.houseNumber,
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: '020202'.toColor(),
                             ),
                             textAlign: TextAlign.right,
@@ -466,7 +468,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     ),
                     SizedBox(
-                      height: 6,
+                      height: sy(4),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -479,7 +481,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             'City',
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: greyColor,
                             ),
                           ),
@@ -491,7 +493,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Text(
                             widget.transaction.user.city,
                             style: textFontWeight400.copyWith(
-                              fontSize: 14,
+                              fontSize: sy(12),
                               color: '020202'.toColor(),
                             ),
                             textAlign: TextAlign.right,

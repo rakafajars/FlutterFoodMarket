@@ -5,6 +5,7 @@ import 'package:flutter_food_market/model/transaction.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/pages/payment/payment_page.dart';
 import 'package:flutter_food_market/ui/widget/rating_stars.dart';
+import 'package:relative_scale/relative_scale.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
@@ -23,10 +24,12 @@ class FoodDetailPage extends StatefulWidget {
   _FoodDetailPageState createState() => _FoodDetailPageState();
 }
 
-class _FoodDetailPageState extends State<FoodDetailPage> {
+class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
   int quantity = 1;
   @override
   Widget build(BuildContext context) {
+    initRelativeScaler(context);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -40,7 +43,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
           ),
           SafeArea(
             child: Container(
-              height: 300,
+              height: sy(280),
               width: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -59,7 +62,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                   children: [
                     /// Back Button,
                     Container(
-                      height: 100,
+                      height: sy(80),
                       padding: EdgeInsets.symmetric(
                         horizontal: defaultMargin,
                       ),
@@ -73,8 +76,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                           },
                           child: Container(
                             padding: EdgeInsets.all(3),
-                            width: 30,
-                            height: 30,
+                            width: sy(28),
+                            height: sy(28),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               color: Colors.black12,
@@ -109,18 +112,18 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width - 160,
+                                    width: MediaQuery.of(context).size.width -
+                                        sy(140),
                                     child: Text(
                                       widget.transaction.food.name,
                                       style: textFontWeight400.copyWith(
                                         color: '020202'.toColor(),
-                                        fontSize: 16,
+                                        fontSize: sy(14),
                                       ),
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 6,
+                                    height: sy(4),
                                   ),
                                   RatinStars(
                                     rate: widget.transaction.food.rate,
@@ -136,8 +139,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                       });
                                     },
                                     child: Container(
-                                      width: 26,
-                                      height: 26,
+                                      width: sy(24),
+                                      height: sy(24),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
                                         border: Border.all(
@@ -151,13 +154,13 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 50,
+                                    width: sy(40),
                                     child: Text(
                                       quantity.toString(),
                                       textAlign: TextAlign.center,
                                       style: textFontWeight400.copyWith(
                                         color: '020202'.toColor(),
-                                        fontSize: 16,
+                                        fontSize: sy(14),
                                       ),
                                     ),
                                   ),
@@ -168,8 +171,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                       });
                                     },
                                     child: Container(
-                                      width: 26,
-                                      height: 26,
+                                      width: sy(24),
+                                      height: sy(24),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
                                         border: Border.all(
@@ -192,7 +195,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                               widget.transaction.food.description,
                               style: textFontWeight400.copyWith(
                                 color: greyColor,
-                                fontSize: 14,
+                                fontSize: sy(12),
                               ),
                             ),
                           ),
@@ -200,7 +203,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                             'Ingredients:',
                             style: textFontWeight400.copyWith(
                               color: '020202'.toColor(),
-                              fontSize: 14,
+                              fontSize: sy(12),
                             ),
                           ),
                           Container(
@@ -209,7 +212,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                               widget.transaction.food.ingredients,
                               style: textFontWeight400.copyWith(
                                 color: greyColor,
-                                fontSize: 14,
+                                fontSize: sy(12),
                               ),
                             ),
                           ),
@@ -223,7 +226,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                     'Total Price',
                                     style: textFontWeight400.copyWith(
                                       color: greyColor,
-                                      fontSize: 12,
+                                      fontSize: sy(12),
                                     ),
                                   ),
                                   Text(
@@ -236,14 +239,14 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                     ),
                                     style: textFontWeight400.copyWith(
                                       color: '020202'.toColor(),
-                                      fontSize: 14,
+                                      fontSize: sy(12),
                                     ),
                                   ),
                                 ],
                               ),
                               SizedBox(
-                                width: 163,
-                                height: 45,
+                                width: sy(140),
+                                height: sy(40),
                                 child: RaisedButton(
                                   onPressed: () {
                                     Get.to(
@@ -266,7 +269,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                     'Order Now',
                                     style: textFontWeight500.copyWith(
                                       color: '020202'.toColor(),
-                                      fontSize: 14,
+                                      fontSize: sy(12),
                                     ),
                                   ),
                                 ),

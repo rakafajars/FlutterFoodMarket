@@ -3,6 +3,7 @@ import 'package:flutter_food_market/cubit/user/user_cubit.dart';
 import 'package:flutter_food_market/model/user.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/widget/custom_tab_bar.dart';
+import 'package:relative_scale/relative_scale.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,24 +12,26 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage> with RelativeScale {
   int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    initRelativeScaler(context);
+
     return ListView(
       children: [
         Container(
           padding: EdgeInsets.symmetric(horizontal: defaultMargin),
           width: double.infinity,
-          height: 220,
+          height: sy(200),
           color: Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 110,
-                width: 110,
+                height: sy(90),
+                width: sy(90),
                 margin: EdgeInsets.only(
                   bottom: 16,
                 ),
@@ -57,14 +60,14 @@ class _ProfilePageState extends State<ProfilePage> {
               Text(
                 (context.bloc<UserCubit>().state as UserLoadSuccess).user.name,
                 style: textFontWeight500.copyWith(
-                  fontSize: 18,
+                  fontSize: sy(16),
                   color: '020202'.toColor(),
                 ),
               ),
               Text(
                 (context.bloc<UserCubit>().state as UserLoadSuccess).user.email,
                 style: textFontWeight300.copyWith(
-                  fontSize: 14,
+                  fontSize: sy(12),
                   color: greyColor,
                 ),
               )
@@ -87,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
               SizedBox(
-                height: 16,
+                height: sy(14),
               ),
               Column(
                 children: ((selectedIndex == 0)
@@ -116,13 +119,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             Text(
                               e,
                               style: textFontWeight400.copyWith(
-                                fontSize: 14,
+                                fontSize: sy(12),
                                 color: '020202'.toColor(),
                               ),
                             ),
                             SizedBox(
-                              height: 24,
-                              width: 24,
+                              height: sy(20),
+                              width: sy(20),
                               child: Image.asset(
                                 'assets/right_arrow.png',
                                 fit: BoxFit.contain,
