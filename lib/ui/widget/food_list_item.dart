@@ -52,10 +52,10 @@ class FoodListItem extends StatelessWidget {
                 children: [
                   Text(
                     pictureNameFood,
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: textFontWeight400.copyWith(
-                      fontSize: sy(14),
+                      fontSize: sy(12),
                       color: '020202'.toColor(),
                     ),
                   ),
