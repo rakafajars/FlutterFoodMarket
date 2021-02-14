@@ -7,18 +7,33 @@ import 'package:flutter_food_market/config/environment.dart';
 import 'package:http/http.dart' as http;
 
 class UserService {
-  static Future<ApiReturnValue<User>> signIn(
-      String email, String password) async {
-    await Future.delayed(
-      Duration(
-        milliseconds: 500,
+  static Future<ApiReturnValue<User>> signIn(String email, String password,
+      {http.Client client}) async {
+    if (client == null) {
+      client = http.Client();
+    }
+
+    String url = baseURL + 'login';
+
+    var response = await client.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(
+        <String, String>{
+          'email': email,
+          'paass': password,
+        },
       ),
     );
 
-    return ApiReturnValue(
-      value: mockUser,
-      // message: 'Wrong Email or Password',
-    );
+    if (response.statusCode != 200) {
+      return ApiReturnValue(message: 'Please try Again');
+    }
+
+    var data = jsonDecode(response.body);
+    User value = User.fromJson(data['data']['user']);
+
+    return ApiReturnValue(value: value);
   }
 
   static Future<ApiReturnValue<User>> signUp(User user, String password,
@@ -27,7 +42,7 @@ class UserService {
       client = http.Client();
     }
 
-    String url = baseUrl + 'register';
+    String url = baseURL + 'register';
 
     var response = await client.post(url,
         headers: {"Content-Type": "application/json"},
@@ -66,7 +81,7 @@ class UserService {
 
   static Future<ApiReturnValue<String>> uploadProfilePicture(File pictureFile,
       {http.MultipartRequest request}) async {
-    String url = baseUrl + 'user/photo';
+    String url = baseURL + 'user/photo';
     var uri = Uri.parse(url);
 
     if (request == null) {

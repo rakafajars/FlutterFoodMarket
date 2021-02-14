@@ -1,1 +1,1 @@
-String baseUrl = 'http://foodmarket-backend.buildwithangga.id/api/';
+String baseURL = 'http://foodmarket-backend.buildwithangga.id/api/';

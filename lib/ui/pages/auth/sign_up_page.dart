@@ -147,12 +147,13 @@ class _SignUpPageState extends State<SignUpPage> {
               onPressed: () {
                 Get.to(
                   AddressPage(
-                      User(
-                        name: fullNameController.text,
-                        email: emailController.text,
-                      ),
-                      passwordController.text,
-                      pictureFile),
+                    User(
+                      name: fullNameController.text,
+                      email: emailController.text,
+                    ),
+                    passwordController.text,
+                    pictureFile,
+                  ),
                 );
               },
             ),

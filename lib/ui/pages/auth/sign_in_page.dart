@@ -64,6 +64,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
           ),
           CustomeTextField(
+            obscureText: true,
             controller: passwordController,
             hintFieldStyle: TextStyle(
               color: greyColor,

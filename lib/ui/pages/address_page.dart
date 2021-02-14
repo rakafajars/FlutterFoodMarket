@@ -37,7 +37,8 @@ class _AddressPageState extends State<AddressPage> {
   @override
   void initState() {
     super.initState();
-    cities = ['Bandung', 'Jakarta', 'Bali'];
+    cities = ['Bandung', 'Jakarta', 'Surabaya'];
+    selectedCity = cities[0];
   }
 
   @override
@@ -109,43 +110,33 @@ class _AddressPageState extends State<AddressPage> {
           ),
           Container(
             width: double.infinity,
-            margin: EdgeInsets.symmetric(
-              horizontal: defaultMargin,
-            ),
-            padding: EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
+            margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: Colors.black,
-              ),
-            ),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.black)),
             child: DropdownButton(
-              value: selectedCity,
-              isExpanded: true,
-              underline: SizedBox(),
-              items: cities
-                  .map(
-                    (e) => DropdownMenuItem(
-                      value: e,
-                      child: Text(
-                        e,
-                        style: textFontWeight500.copyWith(
-                          color: Colors.black,
+                value: selectedCity,
+                isExpanded: true,
+                underline: SizedBox(),
+                items: cities
+                    .map(
+                      (e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(
+                          e,
+                          style: textFontWeight500.copyWith(
+                            color: Colors.black,
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                  .toList(),
-              onChanged: (item) {
-                setState(
-                  () {
+                    )
+                    .toList(),
+                onChanged: (item) {
+                  setState(() {
                     selectedCity = item;
-                  },
-                );
-              },
-            ),
+                  });
+                }),
           ),
           CustomeButton(
             margin: EdgeInsets.only(
