@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/shared/theme.dart';
+import 'package:relative_scale/relative_scale.dart';
 
 class CustomeTextFieldTitle extends StatelessWidget {
   final String title;
@@ -13,16 +14,20 @@ class CustomeTextFieldTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: margin,
-      child: Text(
-        title,
-        style: textFontWeight500.copyWith(
-          color: Colors.black,
-          fontSize: 16,
-        ),
-      ),
+    return RelativeBuilder(
+      builder: (context, screenHeight, screenWidth, sy, sx) {
+        return Container(
+          width: double.infinity,
+          margin: margin,
+          child: Text(
+            title,
+            style: textFontWeight500.copyWith(
+              color: Colors.black,
+              fontSize: sy(16),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -43,29 +48,33 @@ class CustomeTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(
-        horizontal: defaultMargin,
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: 10,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: Colors.black,
-        ),
-      ),
-      child: TextField(
-        obscureText: obscureText,
-        controller: controller,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintStyle: hintFieldStyle,
-          hintText: hintFieldText,
-        ),
-      ),
+    return RelativeBuilder(
+      builder: (context, screenHeight, screenWidth, sy, sx) {
+        return Container(
+          width: double.infinity,
+          margin: EdgeInsets.symmetric(
+            horizontal: defaultMargin,
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: sy(10),
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: Colors.black,
+            ),
+          ),
+          child: TextField(
+            obscureText: obscureText,
+            controller: controller,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintStyle: hintFieldStyle,
+              hintText: hintFieldText,
+            ),
+          ),
+        );
+      },
     );
   }
 }

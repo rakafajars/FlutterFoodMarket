@@ -10,6 +10,7 @@ import 'package:flutter_food_market/ui/widget/food_cart.dart';
 import 'package:flutter_food_market/ui/widget/food_list_item.dart';
 import 'package:flutter_food_market/ui/widget/loading_indicator.dart';
 import 'package:flutter_food_market/ui/widget/rating_stars.dart';
+import 'package:relative_scale/relative_scale.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -19,13 +20,15 @@ class FoodPage extends StatefulWidget {
   _FoodPageState createState() => _FoodPageState();
 }
 
-class _FoodPageState extends State<FoodPage> {
+class _FoodPageState extends State<FoodPage> with RelativeScale {
   int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     double listItemWidth =
         MediaQuery.of(context).size.width - 2 * defaultMargin;
+    initRelativeScaler(context);
+
     return ListView(
       children: [
         Column(
@@ -36,7 +39,7 @@ class _FoodPageState extends State<FoodPage> {
                 horizontal: defaultMargin,
               ),
               color: Colors.white,
-              height: 100,
+              height: sy(80),
               width: double.infinity,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,22 +51,22 @@ class _FoodPageState extends State<FoodPage> {
                       Text(
                         'Food Market',
                         style: textFontWeight500.copyWith(
-                          fontSize: 22,
+                          fontSize: sy(18),
                           color: '020202'.toColor(),
                         ),
                       ),
                       Text(
                         'Let’s get some foods',
                         style: textFontWeight300.copyWith(
-                          fontSize: 14,
+                          fontSize: sy(10),
                           color: greyColor,
                         ),
                       ),
                     ],
                   ),
                   Container(
-                    width: 50,
-                    height: 50,
+                    width: sy(50),
+                    height: sy(50),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
@@ -81,7 +84,7 @@ class _FoodPageState extends State<FoodPage> {
             ),
             //// List Of Food
             Container(
-              height: 258,
+              height: sy(220),
               width: double.infinity,
               child: BlocBuilder<FoodCubit, FoodState>(
                 builder: (context, state) {
@@ -150,7 +153,7 @@ class _FoodPageState extends State<FoodPage> {
                     },
                   ),
                   SizedBox(
-                    height: 16,
+                    height: sy(12),
                   ),
                   BlocBuilder<FoodCubit, FoodState>(
                     builder: (context, state) {
@@ -204,7 +207,7 @@ class _FoodPageState extends State<FoodPage> {
               ),
             ),
             SizedBox(
-              height: 80,
+              height: sy(65),
             ),
           ],
         )

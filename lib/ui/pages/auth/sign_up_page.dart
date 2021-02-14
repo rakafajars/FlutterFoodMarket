@@ -1,14 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_food_market/model/user.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/pages/address_page.dart';
 import 'package:flutter_food_market/ui/pages/general_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_button.dart';
 import 'package:flutter_food_market/ui/widget/custom_textfield.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -16,8 +12,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  User user;
-  File pictureFile;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
@@ -36,55 +30,32 @@ class _SignUpPageState extends State<SignUpPage> {
       subTitle: 'Register and eat',
       child: Column(
         children: [
-          GestureDetector(
-            onTap: () async {
-              PickedFile pickedFile =
-                  await ImagePicker().getImage(source: ImageSource.gallery);
-
-              if (pickedFile != null) {
-                pictureFile = File(pickedFile.path);
-                setState(() {});
-              }
-            },
-            child: Container(
-              width: 110,
-              height: 110,
-              margin: EdgeInsets.only(
-                top: 26,
-              ),
-              padding: EdgeInsets.all(
-                10,
-              ),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    'assets/photo_border.png',
-                  ),
+          Container(
+            width: 110,
+            height: 110,
+            margin: EdgeInsets.only(
+              top: 26,
+            ),
+            padding: EdgeInsets.all(
+              10,
+            ),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/photo_border.png',
                 ),
               ),
-              child: (pictureFile != null)
-                  ? Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: FileImage(
-                            pictureFile,
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )
-                  : Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/photo.png',
-                          ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: NetworkImage(
+                    'https://cdn.idntimes.com/content-images/community/2020/11/14-b1fe04b0ceee0bcd7cd47663ff17b2e9.jpg',
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
           CustomeTextFieldTitle(
@@ -130,7 +101,6 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           CustomeTextField(
             controller: passwordController,
-            obscureText: true,
             hintFieldStyle: TextStyle(
               color: greyColor,
             ),
@@ -146,14 +116,7 @@ class _SignUpPageState extends State<SignUpPage> {
               colorsText: Colors.black,
               onPressed: () {
                 Get.to(
-                  AddressPage(
-                    User(
-                      name: fullNameController.text,
-                      email: emailController.text,
-                    ),
-                    passwordController.text,
-                    pictureFile,
-                  ),
+                  AddressPage(),
                 );
               },
             ),

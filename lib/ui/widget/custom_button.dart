@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/shared/theme.dart';
+import 'package:relative_scale/relative_scale.dart';
 
 class CustomeButton extends StatelessWidget {
   final Widget child;
@@ -13,14 +14,18 @@ class CustomeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: margin,
-      height: 45,
-      padding: EdgeInsets.symmetric(
-        horizontal: defaultMargin,
-      ),
-      child: child,
+    return RelativeBuilder(
+      builder: (context, screenHeight, screenWidth, sy, sx) {
+        return Container(
+          width: double.infinity,
+          margin: margin,
+          height: sy(40),
+          padding: EdgeInsets.symmetric(
+            horizontal: defaultMargin,
+          ),
+          child: child,
+        );
+      },
     );
   }
 }
