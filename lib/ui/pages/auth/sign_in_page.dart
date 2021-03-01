@@ -84,10 +84,7 @@ class _SignInPageState extends State<SignInPage> {
                       setState(() {
                         isLoading = true;
                       });
-                      await context.bloc<UserCubit>().signIn(
-                            emailController.text,
-                            passwordController.text,
-                          );
+
                       UserState state = context.bloc<UserCubit>().state;
 
                       if (state is UserLoadSuccess) {
