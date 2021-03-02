@@ -4,6 +4,7 @@ import 'package:flutter_food_market/model/post_register.dart';
 import 'package:flutter_food_market/services/repository.dart';
 import 'package:flutter_food_market/utils/logging_interceptor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http_parser/http_parser.dart';
 
 class ApiService implements Repository {
   Dio get dio => _dio();
@@ -106,6 +107,36 @@ class ApiService implements Repository {
       return response.data["meta"]["message"];
     } on DioError catch (e) {
       throw e.response.data["message"];
+    } catch (error, stacktrace) {
+      throw _showException(error, stacktrace);
+    }
+  }
+
+  @override
+  Future<String> updatePhotoUser(String filePath) async {
+    String token = await _getTokenPreference();
+    try {
+      MediaType mediaType = MediaType(
+        "file",
+        "jpeg",
+      );
+
+      FormData formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(filePath, contentType: mediaType),
+      });
+
+      response = await dio.post('user/photo',
+          options: Options(
+            headers: {
+              "Authorization": "bearer $token",
+            },
+            contentType: 'multipart/form-data',
+          ),
+          data: formData);
+
+      return response.data["meta"]["message"];
+    } on DioError catch (e) {
+      throw e.response.data["meta"]["message"];
     } catch (error, stacktrace) {
       throw _showException(error, stacktrace);
     }

@@ -13,4 +13,8 @@ abstract class Repository {
   Future<String> updateUser(
     PostRegister register,
   );
+
+  Future<String> updatePhotoUser(
+    String filePath,
+  );
 }
