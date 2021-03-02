@@ -171,7 +171,7 @@ class _SignInPageState extends State<SignInPage> {
                             colorsText: Colors.black,
                             onPressed: () async {
                               if (_formKey.currentState.validate()) {
-                                context.bloc<LoginCubit>().login(
+                                context.bloc<LoginCubit>().loginUser(
                                       emailController.text,
                                       passwordController.text,
                                     );
@@ -191,7 +191,7 @@ class _SignInPageState extends State<SignInPage> {
                   colorsText: Colors.white,
                   onPressed: () {
                     Get.to(
-                      SignUpPage(),
+                      InitialSignUpPage(),
                     );
                   },
                 ),

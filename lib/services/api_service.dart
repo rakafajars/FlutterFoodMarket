@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_food_market/config/environment.dart';
+import 'package:flutter_food_market/model/post_register.dart';
 import 'package:flutter_food_market/services/repository.dart';
 import 'package:flutter_food_market/utils/logging_interceptor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,7 +43,7 @@ class ApiService implements Repository {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       response = await dio.post(
-        'api/login',
+        'login',
         data: {
           "email": email,
           "password": password,
@@ -55,6 +56,27 @@ class ApiService implements Repository {
       return response.data["meta"]["message"];
     } on DioError catch (e) {
       throw e.response.data["meta"]["message"];
+    } catch (error, stacktrace) {
+      throw _showException(error, stacktrace);
+    }
+  }
+
+  @override
+  Future<String> registerUser(PostRegister register) async {
+    try {
+      response = await dio.post('register', data: {
+        "name": register.name,
+        "email": register.email,
+        "password": register.password,
+        "password_confirmation": register.passwordConfirmation,
+        "address": register.address,
+        "city": register.city,
+        "houserNumber": register.houseNumber,
+        "phoneNumber": register.phoneNumber,
+      });
+      return response.data["meta"]["message"];
+    } on DioError catch (e) {
+      throw e.response.data["message"];
     } catch (error, stacktrace) {
       throw _showException(error, stacktrace);
     }

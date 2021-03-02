@@ -12,7 +12,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
   // ignore: missing_return
-  Future<void> login(String username, String password) async {
+  Future<void> loginUser(String username, String password) async {
     try {
       emit(
         LoginLoadInProgress(),
