@@ -118,21 +118,23 @@ class ApiService implements Repository {
     try {
       MediaType mediaType = MediaType(
         "file",
-        "jpeg",
+        "jpg",
       );
 
       FormData formData = FormData.fromMap({
         'file': await MultipartFile.fromFile(filePath, contentType: mediaType),
       });
 
-      response = await dio.post('user/photo',
-          options: Options(
-            headers: {
-              "Authorization": "bearer $token",
-            },
-            contentType: 'multipart/form-data',
-          ),
-          data: formData);
+      response = await dio.post(
+        'user/photo',
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+          },
+          contentType: 'multipart/form-data',
+        ),
+        data: formData,
+      );
 
       return response.data["meta"]["message"];
     } on DioError catch (e) {

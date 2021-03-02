@@ -29,3 +29,24 @@ class UpdateProfileLoadedFailed extends UpdateProfileState {
   @override
   List<Object> get props => [message];
 }
+
+class UpdatePhotoProfileLoadInProgress extends UpdateProfileState {
+  @override
+  List<Object> get props => [];
+}
+
+class UpdatePhotoProfileLoadedSuccess extends UpdateProfileState {
+  final String message;
+
+  UpdatePhotoProfileLoadedSuccess(this.message);
+  @override
+  List<Object> get props => [message];
+}
+
+class UpdatePhotoProfileLoadedFailed extends UpdateProfileState {
+  final String message;
+
+  UpdatePhotoProfileLoadedFailed(this.message);
+  @override
+  List<Object> get props => [message];
+}

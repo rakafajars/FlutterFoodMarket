@@ -11,7 +11,7 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
 
   UpdateProfileCubit() : super(UpdateProfileInitial());
 
-  Future<String> updateUser(PostRegister postRegister) async {
+  Future<void> updateUser(PostRegister postRegister) async {
     try {
       emit(
         UpdateProfileLoadInProgress(),
@@ -25,6 +25,24 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
     } catch (e) {
       emit(
         UpdateProfileLoadedFailed("$e"),
+      );
+    }
+  }
+
+  Future<void> updatePhotoUser(String filePath) async {
+    try {
+      emit(
+        UpdatePhotoProfileLoadInProgress(),
+      );
+
+      String message = await _repository.updatePhotoUser(filePath);
+
+      emit(
+        UpdatePhotoProfileLoadedSuccess(message),
+      );
+    } catch (e) {
+      emit(
+        UpdatePhotoProfileLoadedFailed("$e"),
       );
     }
   }

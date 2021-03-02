@@ -10,7 +10,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   Repository _repository = ApiService();
   RegisterCubit() : super(RegisterInitial());
 
-  Future<String> registerUser(PostRegister postRegister) async {
+  Future<void> registerUser(PostRegister postRegister) async {
     try {
       emit(
         RegisterLoadInProgress(),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +12,9 @@ import 'package:flutter_food_market/ui/widget/custom_textfield.dart';
 import 'package:flutter_food_market/ui/widget/loading_indicator.dart';
 import 'package:get/get.dart';
 import 'package:relative_scale/relative_scale.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:image/image.dart' as imageConvert;
 
 class InitialProfileUpdate extends StatelessWidget {
   @override
@@ -38,6 +42,10 @@ class _ProfileUpdateState extends State<ProfileUpdate> with RelativeScale {
   List _listCity = ["Bandung", "Jakarta", "Surabaya"];
 
   String initialCity = "Bandung";
+
+  // Image
+  File image;
+  final picker = ImagePicker();
 
   @override
   void dispose() {
@@ -110,37 +118,96 @@ class _ProfileUpdateState extends State<ProfileUpdate> with RelativeScale {
               ),
             );
           }
+          if (state is UpdatePhotoProfileLoadedSuccess) {
+            Get.snackbar(
+              '',
+              '',
+              backgroundColor: mainColor,
+              icon: Icon(
+                MdiIcons.closeCircleOutline,
+                color: Colors.white,
+              ),
+              titleText: Text(
+                'Update Photo Profile Success',
+                style: textFontWeight600.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+              messageText: Text(
+                state.message,
+                style: textFontWeightNormal.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+            );
+          }
+          if (state is UpdatePhotoProfileLoadedFailed) {
+            setState(() {
+              image = null;
+            });
+            Get.snackbar(
+              '',
+              '',
+              backgroundColor: pinkColor,
+              icon: Icon(
+                MdiIcons.closeCircleOutline,
+                color: Colors.white,
+              ),
+              titleText: Text(
+                'Update Photo Profile Failed',
+                style: textFontWeight600.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+              messageText: Text(
+                state.message,
+                style: textFontWeightNormal.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+            );
+          }
         },
         child: Form(
           key: _formKey,
           child: Column(
             children: [
-              Container(
-                width: sy(100),
-                height: sy(100),
-                margin: EdgeInsets.only(
-                  top: 26,
-                ),
-                padding: EdgeInsets.all(
-                  10,
-                ),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      'assets/photo_border.png',
-                    ),
-                  ),
-                ),
+              GestureDetector(
+                onTap: () {
+                  _showPicker(context);
+                },
                 child: Container(
+                  width: sy(100),
+                  height: sy(100),
+                  margin: EdgeInsets.only(
+                    top: 26,
+                  ),
+                  padding: EdgeInsets.all(
+                    10,
+                  ),
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
                     image: DecorationImage(
-                      image: NetworkImage(
-                        'https://cdn.idntimes.com/content-images/community/2020/11/14-b1fe04b0ceee0bcd7cd47663ff17b2e9.jpg',
+                      image: AssetImage(
+                        'assets/photo_border.png',
                       ),
-                      fit: BoxFit.cover,
                     ),
                   ),
+                  child: image == null
+                      ? Container(
+                          child: Icon(
+                            Icons.people,
+                            size: sy(24),
+                          ),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: FileImage(image),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                 ),
               ),
               CustomeTextFieldTitle(
@@ -344,5 +411,94 @@ class _ProfileUpdateState extends State<ProfileUpdate> with RelativeScale {
         ),
       ),
     );
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return SafeArea(
+          child: Container(
+            child: new Wrap(
+              children: <Widget>[
+                new ListTile(
+                  leading: new Icon(Icons.photo_library),
+                  title: new Text(
+                    'Select Galery',
+                  ),
+                  onTap: () async {
+                    _imgFromGallery();
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new ListTile(
+                  leading: new Icon(Icons.photo_camera),
+                  title: new Text(
+                    'Select Camera',
+                  ),
+                  onTap: () async {
+                    _imgFromCamera();
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _imgFromCamera() async {
+    final PickedFile pickedFile = await picker.getImage(
+      source: ImageSource.camera,
+      maxWidth: 1000,
+      maxHeight: 1000,
+    );
+
+    setState(() {
+      if (pickedFile != null) {
+        this.image = File(pickedFile.path);
+
+        imageConvert.Image decodeImage = imageConvert.decodeImage(
+          File(pickedFile.path).readAsBytesSync(),
+        );
+
+        var encondeImage = File('${pickedFile.path}.png')
+          ..writeAsBytesSync(imageConvert.encodeJpg(decodeImage));
+
+        context.bloc<UpdateProfileCubit>().updatePhotoUser(
+              encondeImage.path,
+            );
+        print('hasilnyaa bro $encondeImage');
+      }
+    });
+  }
+
+  Future<void> _imgFromGallery() async {
+    final pickedFile = await picker.getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1000,
+      maxHeight: 1000,
+    );
+
+    setState(() {
+      if (pickedFile != null) {
+        this.image = File(pickedFile.path);
+
+        imageConvert.Image decodeImage = imageConvert.decodeImage(
+          File(pickedFile.path).readAsBytesSync(),
+        );
+
+        var encondeImage = File('${pickedFile.path}.png')
+          ..writeAsBytesSync(imageConvert.encodeJpg(decodeImage));
+
+        context.bloc<UpdateProfileCubit>().updatePhotoUser(
+              encondeImage.path,
+            );
+
+        print('hasilnyaa bro $encondeImage');
+      }
+    });
   }
 }
