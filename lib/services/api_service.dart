@@ -42,7 +42,7 @@ class ApiService implements Repository {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       response = await dio.post(
-        'login',
+        'api/login',
         data: {
           "email": email,
           "password": password,

@@ -38,13 +38,16 @@ class CustomeTextField extends StatelessWidget {
   final String hintFieldText;
   final bool obscureText;
 
-  const CustomeTextField(
-      {Key key,
-      this.controller,
-      this.hintFieldStyle,
-      this.hintFieldText,
-      this.obscureText = false})
-      : super(key: key);
+  final String Function(String) validator;
+
+  const CustomeTextField({
+    Key key,
+    this.controller,
+    this.hintFieldStyle,
+    this.hintFieldText,
+    this.obscureText = false,
+    this.validator,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +67,8 @@ class CustomeTextField extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          child: TextField(
+          child: TextFormField(
+            validator: validator,
             obscureText: obscureText,
             controller: controller,
             decoration: InputDecoration(
