@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_food_market/cubit/food/food_cubit.dart';
 import 'package:flutter_food_market/cubit/login/login_cubit.dart';
 import 'package:flutter_food_market/cubit/transaction/transaction_cubit.dart';
-import 'package:flutter_food_market/cubit/user/user_cubit.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/pages/auth/sign_up_page.dart';
 import 'package:flutter_food_market/ui/pages/general_page.dart';
@@ -98,9 +97,9 @@ class _SignInPageState extends State<SignInPage> {
             );
             // context.bloc<FoodCubit>().getFoods();
             // context.bloc<TransactionCubit>().getTransaction();
-            // Get.to(
-            //   MainPage(),
-            // );
+            Get.to(
+              MainPage(),
+            );
           }
         },
         child: Form(

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_market/cubit/user/user_cubit.dart';
 import 'package:flutter_food_market/model/user.dart';
 import 'package:flutter_food_market/shared/theme.dart';
+import 'package:flutter_food_market/ui/pages/profile/profile_update.dart';
 import 'package:flutter_food_market/ui/widget/custom_tab_bar.dart';
 import 'package:relative_scale/relative_scale.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -43,29 +44,32 @@ class _ProfilePageState extends State<ProfilePage> with RelativeScale {
                     ),
                   ),
                 ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        (context.bloc<UserCubit>().state as UserLoadSuccess)
-                            .user
-                            .picturePath,
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                // child: Container(
+                //   decoration: BoxDecoration(
+                //     shape: BoxShape.circle,
+                //     image: DecorationImage(
+                //       image: NetworkImage(
+                //         // (context.bloc<UserCubit>().state as UserLoadSuccess)
+                //         //     .user
+                //         //     .picturePath,
+                //         '',
+                //       ),
+                //       fit: BoxFit.cover,
+                //     ),
+                //   ),
+                // ),
               ),
               Text(
-                (context.bloc<UserCubit>().state as UserLoadSuccess).user.name,
+                // (context.bloc<UserCubit>().state as UserLoadSuccess).user.name,
+                'Raka',
                 style: textFontWeight500.copyWith(
                   fontSize: sy(16),
                   color: '020202'.toColor(),
                 ),
               ),
               Text(
-                (context.bloc<UserCubit>().state as UserLoadSuccess).user.email,
+                // (context.bloc<UserCubit>().state as UserLoadSuccess).user.email,
+                'raka@gmail.com',
                 style: textFontWeight300.copyWith(
                   fontSize: sy(12),
                   color: greyColor,
@@ -107,31 +111,40 @@ class _ProfilePageState extends State<ProfilePage> with RelativeScale {
                             'Term & Condition'
                           ])
                     .map(
-                      (e) => Padding(
-                        padding: EdgeInsets.only(
-                          bottom: 16,
-                          left: defaultMargin,
-                          right: defaultMargin,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              e,
-                              style: textFontWeight400.copyWith(
-                                fontSize: sy(12),
-                                color: '020202'.toColor(),
+                      (e) => GestureDetector(
+                        onTap: () {
+                          if (e == "Edit Profile") {
+                            Get.to(
+                              InitialProfileUpdate(),
+                            );
+                          }
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            bottom: 16,
+                            left: defaultMargin,
+                            right: defaultMargin,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                e,
+                                style: textFontWeight400.copyWith(
+                                  fontSize: sy(12),
+                                  color: '020202'.toColor(),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: sy(20),
-                              width: sy(20),
-                              child: Image.asset(
-                                'assets/right_arrow.png',
-                                fit: BoxFit.contain,
+                              SizedBox(
+                                height: sy(20),
+                                width: sy(20),
+                                child: Image.asset(
+                                  'assets/right_arrow.png',
+                                  fit: BoxFit.contain,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     )

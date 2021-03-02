@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/cubit/food/food_cubit.dart';
-import 'package:flutter_food_market/cubit/user/user_cubit.dart';
 import 'package:flutter_food_market/model/food.dart';
 import 'package:flutter_food_market/model/transaction.dart';
 import 'package:flutter_food_market/shared/theme.dart';
@@ -70,11 +69,7 @@ class _FoodPageState extends State<FoodPage> with RelativeScale {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
-                        image: NetworkImage(
-                          (context.bloc<UserCubit>().state as UserLoadSuccess)
-                              .user
-                              .picturePath,
-                        ),
+                        image: NetworkImage(''),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -102,21 +97,21 @@ class _FoodPageState extends State<FoodPage> with RelativeScale {
                                             right: defaultMargin),
                                         child: GestureDetector(
                                           onTap: () {
-                                            Get.to(
-                                              FoodDetailPage(
-                                                transaction: Transaction(
-                                                  food: e,
-                                                  user: (context
-                                                              .bloc<UserCubit>()
-                                                              .state
-                                                          as UserLoadSuccess)
-                                                      .user,
-                                                ),
-                                                onBackButtonPressed: () {
-                                                  Get.back();
-                                                },
-                                              ),
-                                            );
+                                            // Get.to(
+                                            //   FoodDetailPage(
+                                            //     transaction: Transaction(
+                                            //       food: e,
+                                            //       user: (context
+                                            //                   .bloc<UserCubit>()
+                                            //                   .state
+                                            //               as UserLoadSuccess)
+                                            //           .user,
+                                            //     ),
+                                            //     onBackButtonPressed: () {
+                                            //       Get.back();
+                                            //     },
+                                            //   ),
+                                            // );
                                           },
                                           child: FoodCard(
                                             food: e,

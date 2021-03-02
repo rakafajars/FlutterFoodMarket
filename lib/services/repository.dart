@@ -9,4 +9,8 @@ abstract class Repository {
   Future<String> registerUser(
     PostRegister register,
   );
+
+  Future<String> updateUser(
+    PostRegister register,
+  );
 }

@@ -81,4 +81,33 @@ class ApiService implements Repository {
       throw _showException(error, stacktrace);
     }
   }
+
+  @override
+  Future<String> updateUser(PostRegister register) async {
+    String token = await _getTokenPreference();
+
+    try {
+      response = await dio.post(
+        'user',
+        data: {
+          "name": register.name,
+          "email": register.email,
+          "address": register.address,
+          "city": register.city,
+          "houserNumber": register.houseNumber,
+          "phoneNumber": register.phoneNumber,
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ' + token,
+          },
+        ),
+      );
+      return response.data["meta"]["message"];
+    } on DioError catch (e) {
+      throw e.response.data["message"];
+    } catch (error, stacktrace) {
+      throw _showException(error, stacktrace);
+    }
+  }
 }
