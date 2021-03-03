@@ -97,7 +97,7 @@ class _SignInPageState extends State<SignInPage> {
             );
             // context.bloc<FoodCubit>().getFoods();
             // context.bloc<TransactionCubit>().getTransaction();
-            Get.to(
+            Get.offAll(
               MainPage(),
             );
           }
