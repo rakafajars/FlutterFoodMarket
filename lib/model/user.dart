@@ -11,11 +11,11 @@ class User {
   });
 
   Meta meta;
-  Data data;
+  DataUser data;
 
   User copyWith({
     Meta meta,
-    Data data,
+    DataUser data,
   }) =>
       User(
         meta: meta ?? this.meta,
@@ -24,7 +24,7 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         meta: Meta.fromJson(json["meta"]),
-        data: Data.fromJson(json["data"]),
+        data: DataUser.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,8 +33,8 @@ class User {
       };
 }
 
-class Data {
-  Data({
+class DataUser {
+  DataUser({
     this.id,
     this.name,
     this.email,
@@ -66,7 +66,7 @@ class Data {
   String profilePhotoPath;
   String profilePhotoUrl;
 
-  Data copyWith({
+  DataUser copyWith({
     int id,
     String name,
     String email,
@@ -82,7 +82,7 @@ class Data {
     String profilePhotoPath,
     String profilePhotoUrl,
   }) =>
-      Data(
+      DataUser(
         id: id ?? this.id,
         name: name ?? this.name,
         email: email ?? this.email,
@@ -99,7 +99,7 @@ class Data {
         profilePhotoUrl: profilePhotoUrl ?? this.profilePhotoUrl,
       );
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory DataUser.fromJson(Map<String, dynamic> json) => DataUser(
         id: json["id"],
         name: json["name"],
         email: json["email"],

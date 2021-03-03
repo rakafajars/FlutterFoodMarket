@@ -13,20 +13,36 @@ import 'package:flutter_food_market/ui/widget/loading_indicator.dart';
 import 'package:get/get.dart';
 import 'package:relative_scale/relative_scale.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_food_market/model/user.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:image/image.dart' as imageConvert;
 
 class InitialProfileUpdate extends StatelessWidget {
+  final DataUser dataUser;
+
+  const InitialProfileUpdate({
+    Key key,
+    this.dataUser,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<UpdateProfileCubit>(
       create: (context) => UpdateProfileCubit(),
-      child: ProfileUpdate(),
+      child: ProfileUpdate(
+        dataUser: dataUser,
+      ),
     );
   }
 }
 
 class ProfileUpdate extends StatefulWidget {
+  final DataUser dataUser;
+
+  const ProfileUpdate({
+    Key key,
+    this.dataUser,
+  }) : super(key: key);
   @override
   _ProfileUpdateState createState() => _ProfileUpdateState();
 }
@@ -34,18 +50,39 @@ class ProfileUpdate extends StatefulWidget {
 class _ProfileUpdateState extends State<ProfileUpdate> with RelativeScale {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController houseNumberController = TextEditingController();
+  TextEditingController emailController;
+  TextEditingController fullNameController;
+  TextEditingController phoneNumberController;
+  TextEditingController addressController;
+  TextEditingController houseNumberController;
   List _listCity = ["Bandung", "Jakarta", "Surabaya"];
 
-  String initialCity = "Bandung";
+  String initialCity;
 
   // Image
   File image;
   final picker = ImagePicker();
+
+  @override
+  void initState() {
+    fullNameController = TextEditingController(
+      text: widget.dataUser.name,
+    );
+    emailController = TextEditingController(
+      text: widget.dataUser.email,
+    );
+    phoneNumberController = TextEditingController(
+      text: widget.dataUser.phoneNumber,
+    );
+    addressController = TextEditingController(
+      text: widget.dataUser.address,
+    );
+    houseNumberController = TextEditingController(
+      text: widget.dataUser.houseNumber,
+    );
+    initialCity = widget.dataUser.city;
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -73,6 +110,9 @@ class _ProfileUpdateState extends State<ProfileUpdate> with RelativeScale {
       child: BlocListener<UpdateProfileCubit, UpdateProfileState>(
         listener: (context, state) {
           if (state is UpdateProfileLoadedSuccess) {
+            Get.back(
+              result: widget.dataUser,
+            );
             Get.snackbar(
               '',
               '',
