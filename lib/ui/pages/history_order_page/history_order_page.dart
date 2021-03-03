@@ -121,9 +121,9 @@ class _HistoryOrderPageState extends State<HistoryOrderPage>
                                         bottom: 16,
                                       ),
                                       child: FoodListItem(
-                                        pictureFood: e.food.picturePath,
-                                        pictureNameFood: e.food.name,
-                                        priceFood: e.food.price,
+                                        // pictureFood: e.food.picturePath,
+                                        // pictureNameFood: e.food.name,
+                                        // priceFood: e.food.price,
                                         itemWidth: listItemWidth,
                                         childCustom: SizedBox(
                                           width: sy(90),

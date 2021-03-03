@@ -146,10 +146,7 @@ class _ProfilePageState extends State<ProfilePage> with RelativeScale {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               image: NetworkImage(
-                                // (context.bloc<UserCubit>().state as UserLoadSuccess)
-                                //     .user
-                                //     .picturePath,
-                                'https://flutter.dev/images/flutter-logo-sharing.png',
+                                state.user.data.profilePhotoUrl,
                               ),
                               fit: BoxFit.fill,
                             ),

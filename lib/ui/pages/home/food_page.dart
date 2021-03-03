@@ -24,10 +24,7 @@ class _FoodPageState extends State<FoodPage> with RelativeScale {
 
   @override
   Widget build(BuildContext context) {
-    double listItemWidth =
-        MediaQuery.of(context).size.width - 2 * defaultMargin;
     initRelativeScaler(context);
-
     return ListView(
       children: [
         Column(
@@ -83,124 +80,127 @@ class _FoodPageState extends State<FoodPage> with RelativeScale {
               width: double.infinity,
               child: BlocBuilder<FoodCubit, FoodState>(
                 builder: (context, state) {
-                  return (state is FoodLoadSuccess)
-                      ? ListView(
-                          padding: EdgeInsets.only(
-                            left: defaultMargin,
-                          ),
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            Row(
-                              children: state.foods
-                                  .map((e) => Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: defaultMargin),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            // Get.to(
-                                            //   FoodDetailPage(
-                                            //     transaction: Transaction(
-                                            //       food: e,
-                                            //       user: (context
-                                            //                   .bloc<UserCubit>()
-                                            //                   .state
-                                            //               as UserLoadSuccess)
-                                            //           .user,
-                                            //     ),
-                                            //     onBackButtonPressed: () {
-                                            //       Get.back();
-                                            //     },
-                                            //   ),
-                                            // );
-                                          },
-                                          child: FoodCard(
-                                            food: e,
-                                          ),
-                                        ),
-                                      ))
-                                  .toList(),
-                            ),
-                          ],
-                        )
-                      : Center(
-                          child: LoadingIndicator(),
-                        );
+                  if (state is FoodLoadInProgress) {
+                    return LoadingIndicator();
+                  }
+                  if (state is FoodLoadSuccess) {
+                    return ListView(
+                      padding: EdgeInsets.only(
+                        left: defaultMargin,
+                      ),
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Row(
+                          children: state.food.data.data
+                              .map((e) => Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: defaultMargin),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        // Get.to(
+                                        //   FoodDetailPage(
+                                        //     transaction: Transaction(
+                                        //       food: e,
+                                        //       user: (context
+                                        //                   .bloc<UserCubit>()
+                                        //                   .state
+                                        //               as UserLoadSuccess)
+                                        //           .user,
+                                        //     ),
+                                        //     onBackButtonPressed: () {
+                                        //       Get.back();
+                                        //     },
+                                        //   ),
+                                        // );
+                                      },
+                                      child: FoodCard(
+                                        food: e,
+                                      ),
+                                    ),
+                                  ))
+                              .toList(),
+                        ),
+                      ],
+                    );
+                  }
+                  if (state is FoodLoadError) {
+                    return Text(state.message);
+                  }
+                  return ListView(
+                    children: [],
+                  );
                 },
               ),
             ),
             //// List OF Fod (Tabs)
-            Container(
-              width: double.infinity,
-              color: Colors.white,
-              child: Column(
-                children: [
-                  CustomTabBar(
-                    title: [
-                      'New Taste',
-                      'Popular',
-                      'Recomended',
-                    ],
-                    selectedIndex: selectedIndex,
-                    onTap: (index) {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                  ),
-                  SizedBox(
-                    height: sy(12),
-                  ),
-                  BlocBuilder<FoodCubit, FoodState>(
-                    builder: (context, state) {
-                      if (state is FoodLoadSuccess) {
-                        return Builder(
-                          builder: (_) {
-                            List<Food> foods = state.foods
-                                .where(
-                                  (element) => element.types.contains(
-                                    (selectedIndex == 0)
-                                        ? FoodType.new_food
-                                        : (selectedIndex == 1)
-                                            ? FoodType.popular
-                                            : FoodType.recommended,
-                                  ),
-                                )
-                                .toList();
-                            return Column(
-                              children: foods
-                                  .map(
-                                    (e) => Padding(
-                                      padding: EdgeInsets.fromLTRB(
-                                        defaultMargin,
-                                        0,
-                                        defaultMargin,
-                                        16,
-                                      ),
-                                      child: FoodListItem(
-                                        pictureFood: e.picturePath,
-                                        pictureNameFood: e.name,
-                                        priceFood: e.price,
-                                        itemWidth: listItemWidth,
-                                        childCustom: RatinStars(
-                                          rate: e.rate,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                            );
-                          },
-                        );
-                      } else {
-                        return Center(
-                          child: LoadingIndicator(),
-                        );
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
+            // Container(
+            //   width: double.infinity,
+            //   color: Colors.white,
+            //   child: Column(
+            //     children: [
+            //       CustomTabBar(
+            //         title: [
+            //           'New Taste',
+            //           'Popular',
+            //           'Recomended',
+            //         ],
+            //         selectedIndex: selectedIndex,
+            //         onTap: (index) {
+            //           setState(() {
+            //             selectedIndex = index;
+            //           });
+            //         },
+            //       ),
+            //       SizedBox(
+            //         height: sy(12),
+            //       ),
+            //       BlocBuilder<FoodCubit, FoodState>(
+            //         builder: (context, state) {
+            //           if (state is FoodLoadSuccess) {
+            //             return Builder(
+            //               builder: (_) {
+            //                 List<Food> foods = state.foods
+            //                     .where(
+            //                       (element) => element.types.contains(
+            //                         (selectedIndex == 0)
+            //                             ? FoodType.new_food
+            //                             : (selectedIndex == 1)
+            //                                 ? FoodType.popular
+            //                                 : FoodType.recommended,
+            //                       ),
+            //                     )
+            //                     .toList();
+            //                 return Column(
+            //                   children: foods
+            //                       .map(
+            //                         (e) => Padding(
+            //                           padding: EdgeInsets.fromLTRB(
+            //                             defaultMargin,
+            //                             0,
+            //                             defaultMargin,
+            //                             16,
+            //                           ),
+            //                           child: FoodListItem(
+            //                             pictureFood: e.picturePath,
+            //                             pictureNameFood: e.name,
+            //                             priceFood: e.price,
+            //                             itemWidth: listItemWidth,
+            //                             childCustom: RatinStars(
+            //                               rate: e.rate,
+            //                             ),
+            //                           ),
+            //                         ),
+            //                       )
+            //                       .toList(),
+            //                 );
+            //               },
+            //             );
+            //           }
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
             SizedBox(
               height: sy(65),
             ),

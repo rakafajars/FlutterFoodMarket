@@ -1,3 +1,4 @@
+import 'package:flutter_food_market/model/food.dart';
 import 'package:flutter_food_market/model/post_register.dart';
 import 'package:flutter_food_market/model/user.dart';
 
@@ -22,4 +23,6 @@ abstract class Repository {
   );
 
   Future<User> getUser();
+
+  Future<Food> getFood(String typeFood);
 }

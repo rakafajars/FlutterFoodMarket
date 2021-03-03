@@ -6,7 +6,7 @@ import 'package:relative_scale/relative_scale.dart';
 import 'package:supercharged/supercharged.dart';
 
 class FoodCard extends StatelessWidget {
-  final Food food;
+  final DatumFood food;
 
   const FoodCard({Key key, this.food}) : super(key: key);
   @override
@@ -68,7 +68,7 @@ class FoodCard extends StatelessWidget {
                   left: sy(12),
                 ),
                 child: RatinStars(
-                  rate: food.rate,
+                  rate: food.rate.toDouble(),
                 ),
               ),
             ],

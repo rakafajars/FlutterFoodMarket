@@ -48,7 +48,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                    widget.transaction.food.picturePath,
+                    // widget.transaction.food.picturePath,
+                    '',
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -115,7 +116,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                                     width: MediaQuery.of(context).size.width -
                                         sy(140),
                                     child: Text(
-                                      widget.transaction.food.name,
+                                      // widget.transaction.food.name,
+                                      'Baso',
                                       style: textFontWeight400.copyWith(
                                         color: '020202'.toColor(),
                                         fontSize: sy(14),
@@ -126,7 +128,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                                     height: sy(4),
                                   ),
                                   RatinStars(
-                                    rate: widget.transaction.food.rate,
+                                    // rate: widget.transaction.food.rate,
+                                    rate: 20.0,
                                   )
                                 ],
                               ),
@@ -192,7 +195,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                           Container(
                             margin: EdgeInsets.fromLTRB(0, 14, 0, 16),
                             child: Text(
-                              widget.transaction.food.description,
+                              // widget.transaction.food.description,
+                              'asdadasdasdasd',
                               style: textFontWeight400.copyWith(
                                 color: greyColor,
                                 fontSize: sy(12),
@@ -209,7 +213,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                           Container(
                             margin: EdgeInsets.fromLTRB(0, 4, 0, 41),
                             child: Text(
-                              widget.transaction.food.ingredients,
+                              // widget.transaction.food.ingredients,
+                              'asdadasdasdas',
                               style: textFontWeight400.copyWith(
                                 color: greyColor,
                                 fontSize: sy(12),
@@ -235,8 +240,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                                       symbol: 'IDR ',
                                       decimalDigits: 0,
                                     ).format(
-                                      quantity * widget.transaction.food.price,
-                                    ),
+                                        // quantity * widget.transaction.food.price,
+                                        1500000),
                                     style: textFontWeight400.copyWith(
                                       color: '020202'.toColor(),
                                       fontSize: sy(12),
@@ -254,8 +259,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                                         transaction:
                                             widget.transaction.copyWith(
                                           quantity: quantity,
-                                          total: quantity *
-                                              widget.transaction.food.price,
+                                          total: quantity * 1111114,
+                                          // widget.transaction.food.price,
                                         ),
                                       ),
                                     );

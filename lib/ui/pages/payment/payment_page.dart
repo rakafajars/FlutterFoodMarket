@@ -78,9 +78,9 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                                 image: DecorationImage(
-                                    image: NetworkImage(
-                                      widget.transaction.food.picturePath,
-                                    ),
+                                    image: NetworkImage(''
+                                        // widget.transaction.food.picturePath,
+                                        ),
                                     fit: BoxFit.cover),
                               ),
                             ),
@@ -90,17 +90,9 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width -
                                       sy(160),
-
-                                  // 2 * default margin (jarak border)
-
-                                  // 60 lebar gambar +
-
-                                  // 12 jarak gambar +
-
-                                  // 78 +
-
                                   child: Text(
-                                    widget.transaction.food.name,
+                                    // widget.transaction.food.name,
+                                    'Baso',
                                     maxLines: 1,
                                     overflow: TextOverflow.clip,
                                     style: textFontWeight400.copyWith(
@@ -115,7 +107,8 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                                     symbol: 'IDR ',
                                     decimalDigits: 0,
                                   ).format(
-                                    widget.transaction.food.price,
+                                    // widget.transaction.food.price,
+                                    11111,
                                   ),
                                   style: textFontWeight400.copyWith(
                                     fontSize: sy(11),
@@ -157,7 +150,8 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                               defaultMargin -
                               5,
                           child: Text(
-                            widget.transaction.food.name,
+                            // widget.transaction.food.name,
+                            'Food',
                             style: textFontWeight400.copyWith(
                               fontSize: sy(12),
                               color: greyColor,

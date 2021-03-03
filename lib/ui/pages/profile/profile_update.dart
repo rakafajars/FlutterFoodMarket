@@ -159,6 +159,9 @@ class _ProfileUpdateState extends State<ProfileUpdate> with RelativeScale {
             );
           }
           if (state is UpdatePhotoProfileLoadedSuccess) {
+            Get.back(
+              result: widget.dataUser,
+            );
             Get.snackbar(
               '',
               '',
@@ -234,9 +237,14 @@ class _ProfileUpdateState extends State<ProfileUpdate> with RelativeScale {
                   ),
                   child: image == null
                       ? Container(
-                          child: Icon(
-                            Icons.people,
-                            size: sy(24),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                widget.dataUser.profilePhotoUrl,
+                              ),
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         )
                       : Container(

@@ -9,13 +9,18 @@ class FoodInitial extends FoodState {
   List<Object> get props => [];
 }
 
-class FoodLoadSuccess extends FoodState {
-  final List<Food> foods;
+class FoodLoadInProgress extends FoodState {
+  @override
+  List<Object> get props => [];
+}
 
-  FoodLoadSuccess({this.foods});
+class FoodLoadSuccess extends FoodState {
+  final Food food;
+
+  FoodLoadSuccess({this.food});
 
   @override
-  List<Object> get props => [foods];
+  List<Object> get props => [food];
 }
 
 class FoodLoadError extends FoodState {

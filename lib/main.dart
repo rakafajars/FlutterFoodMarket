@@ -24,7 +24,10 @@ class MyApp extends StatelessWidget {
           create: (context) => LogoutCubit(),
         ),
         BlocProvider<FoodCubit>(
-          create: (context) => FoodCubit(),
+          create: (context) => FoodCubit()
+            ..getFood(
+              typeFood: '',
+            ),
         ),
         BlocProvider<TransactionCubit>(
           create: (context) => TransactionCubit(),
