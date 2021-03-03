@@ -1,4 +1,5 @@
 import 'package:flutter_food_market/model/post_register.dart';
+import 'package:flutter_food_market/model/user.dart';
 
 abstract class Repository {
   Future<String> loginUser(
@@ -19,4 +20,6 @@ abstract class Repository {
   Future<String> updatePhotoUser(
     String filePath,
   );
+
+  Future<User> getUser();
 }

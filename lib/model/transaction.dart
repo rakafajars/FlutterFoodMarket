@@ -68,7 +68,7 @@ List<Transaction> mockTransaction = [
     total: (mockFoods[1].price * 10 * 1.1).round() + 50000,
     dateTime: DateTime.now(),
     status: TransactionStatus.on_delivery,
-    user: mockUser,
+    // user: mockUser,
   ),
   Transaction(
     id: 2,
@@ -77,7 +77,7 @@ List<Transaction> mockTransaction = [
     total: (mockFoods[2].price * 10 * 1.1).round() + 50000,
     dateTime: DateTime.now(),
     status: TransactionStatus.delivered,
-    user: mockUser,
+    // user: mockUser,
   ),
   Transaction(
     id: 2,
@@ -86,6 +86,6 @@ List<Transaction> mockTransaction = [
     total: (mockFoods[3].price * 10 * 1.1).round() + 50000,
     dateTime: DateTime.now(),
     status: TransactionStatus.cancelled,
-    user: mockUser,
+    // user: mockUser,
   )
 ];

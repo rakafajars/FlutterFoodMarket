@@ -355,7 +355,8 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                               defaultMargin -
                               5,
                           child: Text(
-                            widget.transaction.user.name,
+                            // widget.transaction.user.name,
+                            'Raka',
                             style: textFontWeight400.copyWith(
                               fontSize: sy(12),
                               color: '020202'.toColor(),
@@ -389,7 +390,8 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                               defaultMargin -
                               5,
                           child: Text(
-                            widget.transaction.user.phoneNumber,
+                            // widget.transaction.user.phoneNumber,
+                            '088222',
                             style: textFontWeight400.copyWith(
                               fontSize: sy(12),
                               color: '020202'.toColor(),
@@ -423,7 +425,8 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                               defaultMargin -
                               5,
                           child: Text(
-                            widget.transaction.user.address,
+                            // widget.transaction.user.address,
+                            'Pasir Jati',
                             style: textFontWeight400.copyWith(
                               fontSize: sy(12),
                               color: '020202'.toColor(),
@@ -457,7 +460,8 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                               defaultMargin -
                               5,
                           child: Text(
-                            widget.transaction.user.houseNumber,
+                            // widget.transaction.user.houseNumber,
+                            'B. 131',
                             style: textFontWeight400.copyWith(
                               fontSize: sy(12),
                               color: '020202'.toColor(),
@@ -491,7 +495,8 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                               defaultMargin -
                               5,
                           child: Text(
-                            widget.transaction.user.city,
+                            // widget.transaction.user.city,
+                            'Bandung',
                             style: textFontWeight400.copyWith(
                               fontSize: sy(12),
                               color: '020202'.toColor(),

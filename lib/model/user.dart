@@ -1,47 +1,170 @@
-import 'package:equatable/equatable.dart';
+import 'dart:convert';
 
-class User extends Equatable {
-  final int id;
-  final String name;
-  final String email;
-  final String address;
-  final String houseNumber;
-  final String phoneNumber;
-  final String city;
-  final String picturePath;
+User userFromJson(String str) => User.fromJson(json.decode(str));
 
+String userToJson(User data) => json.encode(data.toJson());
+
+class User {
   User({
+    this.meta,
+    this.data,
+  });
+
+  Meta meta;
+  Data data;
+
+  User copyWith({
+    Meta meta,
+    Data data,
+  }) =>
+      User(
+        meta: meta ?? this.meta,
+        data: data ?? this.data,
+      );
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        meta: Meta.fromJson(json["meta"]),
+        data: Data.fromJson(json["data"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "meta": meta.toJson(),
+        "data": data.toJson(),
+      };
+}
+
+class Data {
+  Data({
     this.id,
     this.name,
     this.email,
+    this.emailVerifiedAt,
+    this.roles,
+    this.currentTeamId,
     this.address,
     this.houseNumber,
     this.phoneNumber,
     this.city,
-    this.picturePath,
+    this.createdAt,
+    this.updatedAt,
+    this.profilePhotoPath,
+    this.profilePhotoUrl,
   });
 
-  @override
-  List<Object> get props => [
-        id,
-        name,
-        email,
-        address,
-        houseNumber,
-        phoneNumber,
-        city,
-        picturePath,
-      ];
+  int id;
+  String name;
+  String email;
+  dynamic emailVerifiedAt;
+  String roles;
+  dynamic currentTeamId;
+  String address;
+  String houseNumber;
+  String phoneNumber;
+  String city;
+  int createdAt;
+  int updatedAt;
+  String profilePhotoPath;
+  String profilePhotoUrl;
+
+  Data copyWith({
+    int id,
+    String name,
+    String email,
+    dynamic emailVerifiedAt,
+    String roles,
+    dynamic currentTeamId,
+    String address,
+    String houseNumber,
+    String phoneNumber,
+    String city,
+    int createdAt,
+    int updatedAt,
+    String profilePhotoPath,
+    String profilePhotoUrl,
+  }) =>
+      Data(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        email: email ?? this.email,
+        emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
+        roles: roles ?? this.roles,
+        currentTeamId: currentTeamId ?? this.currentTeamId,
+        address: address ?? this.address,
+        houseNumber: houseNumber ?? this.houseNumber,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        city: city ?? this.city,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        profilePhotoPath: profilePhotoPath ?? this.profilePhotoPath,
+        profilePhotoUrl: profilePhotoUrl ?? this.profilePhotoUrl,
+      );
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        id: json["id"],
+        name: json["name"],
+        email: json["email"],
+        emailVerifiedAt: json["email_verified_at"],
+        roles: json["roles"],
+        currentTeamId: json["current_team_id"],
+        address: json["address"],
+        houseNumber: json["houseNumber"],
+        phoneNumber: json["phoneNumber"],
+        city: json["city"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
+        profilePhotoPath: json["profile_photo_path"],
+        profilePhotoUrl: json["profile_photo_url"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "email": email,
+        "email_verified_at": emailVerifiedAt,
+        "roles": roles,
+        "current_team_id": currentTeamId,
+        "address": address,
+        "houseNumber": houseNumber,
+        "phoneNumber": phoneNumber,
+        "city": city,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
+        "profile_photo_path": profilePhotoPath,
+        "profile_photo_url": profilePhotoUrl,
+      };
 }
 
-User mockUser = User(
-  id: 1,
-  name: 'Amelia Andini',
-  address: 'Pasir Jati B.131',
-  city: 'Bandung',
-  houseNumber: '1324',
-  phoneNumber: '0888222231231',
-  email: 'raka@raka.com',
-  picturePath:
-      'https://cdn.idntimes.com/content-images/community/2020/11/14-b1fe04b0ceee0bcd7cd47663ff17b2e9.jpg',
-);
+class Meta {
+  Meta({
+    this.code,
+    this.status,
+    this.message,
+  });
+
+  int code;
+  String status;
+  String message;
+
+  Meta copyWith({
+    int code,
+    String status,
+    String message,
+  }) =>
+      Meta(
+        code: code ?? this.code,
+        status: status ?? this.status,
+        message: message ?? this.message,
+      );
+
+  factory Meta.fromJson(Map<String, dynamic> json) => Meta(
+        code: json["code"],
+        status: json["status"],
+        message: json["message"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "code": code,
+        "status": status,
+        "message": message,
+      };
+}
