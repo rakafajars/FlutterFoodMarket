@@ -6,6 +6,7 @@ import 'package:flutter_food_market/cubit/transaction/transaction_cubit.dart';
 import 'package:flutter_food_market/ui/pages/auth/sign_in_page.dart';
 import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'splash_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        home: InitialSignInPage(),
+        home: SplashScreen(),
       ),
     );
   }

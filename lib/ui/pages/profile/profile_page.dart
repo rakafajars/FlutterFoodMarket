@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/cubit/logout/logout_cubit.dart';
 import 'package:flutter_food_market/cubit/profile/profile_cubit.dart';
-import 'package:flutter_food_market/model/user.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/pages/auth/sign_in_page.dart';
 import 'package:flutter_food_market/ui/pages/profile/profile_update.dart';
 import 'package:flutter_food_market/ui/widget/custom_tab_bar.dart';
 import 'package:flutter_food_market/ui/widget/loading_indicator.dart';
 import 'package:relative_scale/relative_scale.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -20,6 +20,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> with RelativeScale {
+  // Delete Token
+  SharedPreferences preferences;
+  Future<String> getTokenPreference() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString("token");
+  }
+
   int selectedIndex = 0;
 
   ProfileCubit _profileCubit;
@@ -38,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> with RelativeScale {
     return MultiBlocListener(
       listeners: [
         BlocListener<LogoutCubit, LogoutState>(
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state is LogoutLoadedSuccess) {
               Get.snackbar(
                 '',
@@ -61,6 +68,9 @@ class _ProfilePageState extends State<ProfilePage> with RelativeScale {
                   ),
                 ),
               );
+              preferences = await SharedPreferences.getInstance();
+              preferences.remove("token");
+
               Future.delayed(
                 Duration(seconds: 1),
                 () {
@@ -131,20 +141,20 @@ class _ProfilePageState extends State<ProfilePage> with RelativeScale {
                             ),
                           ),
                         ),
-                        // child: Container(
-                        //   decoration: BoxDecoration(
-                        //     shape: BoxShape.circle,
-                        //     image: DecorationImage(
-                        //       image: NetworkImage(
-                        //         // (context.bloc<UserCubit>().state as UserLoadSuccess)
-                        //         //     .user
-                        //         //     .picturePath,
-                        //         '',
-                        //       ),
-                        //       fit: BoxFit.cover,
-                        //     ),
-                        //   ),
-                        // ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                // (context.bloc<UserCubit>().state as UserLoadSuccess)
+                                //     .user
+                                //     .picturePath,
+                                'https://flutter.dev/images/flutter-logo-sharing.png',
+                              ),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
                       ),
                       Text(
                         state.user.data.name,
@@ -202,7 +212,6 @@ class _ProfilePageState extends State<ProfilePage> with RelativeScale {
                                         dataUser: state.user.data,
                                       ),
                                     ).then((value) {
-                                      // _profileCubit..getUSer();
                                       if (value != null) {
                                         print(value);
                                         _profileCubit..getUSer();
