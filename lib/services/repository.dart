@@ -6,6 +6,8 @@ abstract class Repository {
     String password,
   );
 
+  Future<String> postLogoutUser();
+
   Future<String> registerUser(
     PostRegister register,
   );

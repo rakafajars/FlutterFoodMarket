@@ -63,6 +63,27 @@ class ApiService implements Repository {
   }
 
   @override
+  Future<String> postLogoutUser() async {
+    String token = await _getTokenPreference();
+
+    try {
+      response = await dio.post(
+        'logout',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ' + token,
+          },
+        ),
+      );
+      return response.data["meta"]["message"];
+    } on DioError catch (e) {
+      throw e.response.data["message"];
+    } catch (error, stacktrace) {
+      throw _showException(error, stacktrace);
+    }
+  }
+
+  @override
   Future<String> registerUser(PostRegister register) async {
     try {
       response = await dio.post('register', data: {
