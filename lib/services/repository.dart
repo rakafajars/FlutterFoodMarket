@@ -28,4 +28,11 @@ abstract class Repository {
   Future<Food> getFood(String typeFood);
 
   Future<Transaction> getTransaction();
+
+  Future<String> postCheckout({
+    String foodId,
+    String quantity,
+    double total,
+    String status,
+  });
 }

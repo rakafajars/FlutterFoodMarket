@@ -22,10 +22,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> with RelativeScale {
   // Delete Token
   SharedPreferences preferences;
-  Future<String> getTokenPreference() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.getString("token");
-  }
 
   int selectedIndex = 0;
 

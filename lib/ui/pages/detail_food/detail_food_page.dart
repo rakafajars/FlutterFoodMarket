@@ -250,15 +250,14 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                                 height: sy(40),
                                 child: RaisedButton(
                                   onPressed: () {
-                                    // Get.to(
-                                    //   PaymentPage(
-                                    //     transaction: widget.transaction.copyWith(
-                                    //         // quantity: quantity,
-                                    //         // total: quantity * 1111114,
-                                    //         // widget.transaction.food.price,
-                                    //         ),
-                                    //   ),
-                                    // );
+                                    Get.to(
+                                      InitialPaymentPage(
+                                        datumFood: widget.datumFood,
+                                        quantity: quantity.toString(),
+                                        priceTotalItem:
+                                            quantity * widget.datumFood.price,
+                                      ),
+                                    );
                                   },
                                   color: mainColor,
                                   elevation: 0,

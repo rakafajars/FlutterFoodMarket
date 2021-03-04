@@ -45,6 +45,8 @@ class ApiService implements Repository {
     String password,
   ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefsIdUser = await SharedPreferences.getInstance();
+
     try {
       response = await dio.post(
         'login',
@@ -221,6 +223,40 @@ class ApiService implements Repository {
       return Transaction.fromJson(response.data);
     } on DioError catch (e) {
       throw e.response.data["message"];
+    } catch (error, stacktrace) {
+      throw _showException(error, stacktrace);
+    }
+  }
+
+  @override
+  Future<String> postCheckout({
+    String foodId,
+    String quantity,
+    double total,
+    String status,
+  }) async {
+    String token = await _getTokenPreference();
+
+    try {
+      response = await dio.post(
+        'checkout',
+        data: {
+          "food_id": foodId,
+          "user_id": '1767',
+          "quantity": quantity,
+          "total": total,
+          "status": status,
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ' + token,
+          },
+        ),
+      );
+
+      return response.data["meta"]["message"];
+    } on DioError catch (e) {
+      throw e.response.data["meta"]["message"];
     } catch (error, stacktrace) {
       throw _showException(error, stacktrace);
     }
