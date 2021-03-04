@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             ),
         ),
         BlocProvider<TransactionCubit>(
-          create: (context) => TransactionCubit(),
+          create: (context) => TransactionCubit()..getTransaction(),
         ),
       ],
       child: GetMaterialApp(

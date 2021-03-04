@@ -120,7 +120,8 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                           ],
                         ),
                         Text(
-                          '${widget.transaction.quantity} item(s)',
+                          '',
+                          // '${widget.transaction.quantity} item(s)',
                           style: textFontWeight400.copyWith(
                             fontSize: sy(11),
                             color: greyColor,
@@ -168,8 +169,8 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                               symbol: 'IDR ',
                               decimalDigits: 0,
                             ).format(
-                              widget.transaction.total,
-                            ),
+                                // widget.transaction.total,
+                                014545),
                             style: textFontWeight400.copyWith(
                               fontSize: sy(12),
                               color: '020202'.toColor(),
@@ -248,8 +249,8 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                               symbol: 'IDR ',
                               decimalDigits: 0,
                             ).format(
-                              widget.transaction.total * 0.1,
-                            ),
+                                // widget.transaction.total * 0.1,
+                                11231312),
                             style: textFontWeight400.copyWith(
                               fontSize: sy(12),
                               color: '020202'.toColor(),
@@ -288,8 +289,8 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                               symbol: 'IDR ',
                               decimalDigits: 0,
                             ).format(
-                              widget.transaction.total * 1.1 + 50000,
-                            ),
+                                // widget.transaction.total * 1.1 + 50000,
+                                564648964),
                             style: textFontWeight500.copyWith(
                               fontSize: sy(12),
                               color: '1ABC9C'.toColor(),
@@ -511,50 +512,50 @@ class _PaymentPageState extends State<PaymentPage> with RelativeScale {
                         title: 'Checkout Now',
                         colorsButton: mainColor,
                         onPressed: () async {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          bool result = await context
-                              .bloc<TransactionCubit>()
-                              .submitTransaction(
-                                widget.transaction.copyWith(
-                                  dateTime: DateTime.now(),
-                                  total:
-                                      (widget.transaction.total * 1.1).toInt() +
-                                          50000,
-                                ),
-                              );
+                          // setState(() {
+                          //   isLoading = true;
+                          // });
+                          // bool result = await context
+                          //     .bloc<TransactionCubit>()
+                          //     .submitTransaction(
+                          //       widget.transaction.copyWith(
+                          //           // dateTime: DateTime.now(),
+                          //           // total:
+                          //           //     (widget.transaction.total * 1.1).toInt() +
+                          //           //         50000,
+                          //           ),
+                          //     );
 
-                          if (result == true) {
-                            Get.to(
-                              SuccessOrderPage(),
-                            );
-                          } else {
-                            setState(() {
-                              isLoading = false;
-                            });
-                            Get.snackbar(
-                              "",
-                              "",
-                              backgroundColor: pinkColor,
-                              icon: Icon(
-                                MdiIcons.closeCircleOutline,
-                                color: Colors.white,
-                              ),
-                              titleText: Text(
-                                'Transaction Failed',
-                                style: textFontWeight600.copyWith(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              messageText: Text(
-                                'Please try again later.',
-                                style: textFontWeightNormal.copyWith(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            );
-                          }
+                          // if (result == true) {
+                          //   Get.to(
+                          //     SuccessOrderPage(),
+                          //   );
+                          // } else {
+                          //   setState(() {
+                          //     isLoading = false;
+                          //   });
+                          //   Get.snackbar(
+                          //     "",
+                          //     "",
+                          //     backgroundColor: pinkColor,
+                          //     icon: Icon(
+                          //       MdiIcons.closeCircleOutline,
+                          //       color: Colors.white,
+                          //     ),
+                          //     titleText: Text(
+                          //       'Transaction Failed',
+                          //       style: textFontWeight600.copyWith(
+                          //         color: Colors.white,
+                          //       ),
+                          //     ),
+                          //     messageText: Text(
+                          //       'Please try again later.',
+                          //       style: textFontWeightNormal.copyWith(
+                          //         color: Colors.white,
+                          //       ),
+                          //     ),
+                          //   );
+                          // }
                         },
                       ),
                     ),

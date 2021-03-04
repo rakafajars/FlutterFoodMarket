@@ -24,7 +24,10 @@ class _FoodPageState extends State<FoodPage> with RelativeScale {
 
   @override
   Widget build(BuildContext context) {
+    double listItemWidth =
+        MediaQuery.of(context).size.width - 2 * defaultMargin;
     initRelativeScaler(context);
+
     return ListView(
       children: [
         Column(
@@ -133,74 +136,82 @@ class _FoodPageState extends State<FoodPage> with RelativeScale {
               ),
             ),
             //// List OF Fod (Tabs)
-            // Container(
-            //   width: double.infinity,
-            //   color: Colors.white,
-            //   child: Column(
-            //     children: [
-            //       CustomTabBar(
-            //         title: [
-            //           'New Taste',
-            //           'Popular',
-            //           'Recomended',
-            //         ],
-            //         selectedIndex: selectedIndex,
-            //         onTap: (index) {
-            //           setState(() {
-            //             selectedIndex = index;
-            //           });
-            //         },
-            //       ),
-            //       SizedBox(
-            //         height: sy(12),
-            //       ),
-            //       BlocBuilder<FoodCubit, FoodState>(
-            //         builder: (context, state) {
-            //           if (state is FoodLoadSuccess) {
-            //             return Builder(
-            //               builder: (_) {
-            //                 List<Food> foods = state.foods
-            //                     .where(
-            //                       (element) => element.types.contains(
-            //                         (selectedIndex == 0)
-            //                             ? FoodType.new_food
-            //                             : (selectedIndex == 1)
-            //                                 ? FoodType.popular
-            //                                 : FoodType.recommended,
-            //                       ),
-            //                     )
-            //                     .toList();
-            //                 return Column(
-            //                   children: foods
-            //                       .map(
-            //                         (e) => Padding(
-            //                           padding: EdgeInsets.fromLTRB(
-            //                             defaultMargin,
-            //                             0,
-            //                             defaultMargin,
-            //                             16,
-            //                           ),
-            //                           child: FoodListItem(
-            //                             pictureFood: e.picturePath,
-            //                             pictureNameFood: e.name,
-            //                             priceFood: e.price,
-            //                             itemWidth: listItemWidth,
-            //                             childCustom: RatinStars(
-            //                               rate: e.rate,
-            //                             ),
-            //                           ),
-            //                         ),
-            //                       )
-            //                       .toList(),
-            //                 );
-            //               },
-            //             );
-            //           }
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            Container(
+              width: double.infinity,
+              color: Colors.white,
+              child: Column(
+                children: [
+                  CustomTabBar(
+                    title: [
+                      'New Taste',
+                      'Popular',
+                      'Recomended',
+                    ],
+                    selectedIndex: selectedIndex,
+                    onTap: (index) {
+                      setState(() {
+                        selectedIndex = index;
+                        print(index);
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: sy(12),
+                  ),
+                  BlocBuilder<FoodCubit, FoodState>(
+                    builder: (context, state) {
+                      if (state is FoodLoadInProgress) {
+                        return LoadingIndicator();
+                      }
+                      if (state is FoodLoadError) {
+                        return Text(state.message);
+                      }
+                      if (state is FoodLoadSuccess) {
+                        return Builder(
+                          builder: (_) {
+                            List<DatumFood> foods = state.food.data.data
+                                .where(
+                                  (element) => element.types.contains(
+                                    (selectedIndex == 0)
+                                        ? 'new_food'
+                                        : (selectedIndex == 1)
+                                            ? 'popular'
+                                            : 'recommended',
+                                  ),
+                                )
+                                .toList();
+                            return Column(
+                              children: foods
+                                  .map(
+                                    (e) => Padding(
+                                      padding: EdgeInsets.fromLTRB(
+                                        defaultMargin,
+                                        0,
+                                        defaultMargin,
+                                        16,
+                                      ),
+                                      child: FoodListItem(
+                                        pictureFood: e.picturePath,
+                                        pictureNameFood: e.name,
+                                        priceFood: e.price,
+                                        itemWidth: listItemWidth,
+                                        childCustom: RatinStars(
+                                          rate: e.rate.toDouble(),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            );
+                          },
+                        );
+                      }
+                      return Container();
+                    },
+                  ),
+                ],
+              ),
+            ),
             SizedBox(
               height: sy(65),
             ),

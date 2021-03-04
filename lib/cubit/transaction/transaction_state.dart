@@ -9,8 +9,13 @@ class TransactionInitial extends TransactionState {
   List<Object> get props => [];
 }
 
+class TransactionLoadInProgress extends TransactionState {
+  @override
+  List<Object> get props => [];
+}
+
 class TransactionLoadSuccess extends TransactionState {
-  final List<Transaction> transaction;
+  final Transaction transaction;
 
   TransactionLoadSuccess({this.transaction});
   @override

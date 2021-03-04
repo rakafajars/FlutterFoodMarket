@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_food_market/config/environment.dart';
 import 'package:flutter_food_market/model/food.dart';
 import 'package:flutter_food_market/model/post_register.dart';
+import 'package:flutter_food_market/model/transaction.dart';
 import 'package:flutter_food_market/model/user.dart';
 import 'package:flutter_food_market/services/repository.dart';
 import 'package:flutter_food_market/utils/logging_interceptor.dart';
@@ -196,6 +197,28 @@ class ApiService implements Repository {
         'food?types=${typeFood == null ? '' : typeFood}',
       );
       return Food.fromJson(response.data);
+    } on DioError catch (e) {
+      throw e.response.data["message"];
+    } catch (error, stacktrace) {
+      throw _showException(error, stacktrace);
+    }
+  }
+
+  @override
+  Future<Transaction> getTransaction() async {
+    String token = await _getTokenPreference();
+
+    try {
+      response = await dio.get(
+        'transaction?id=1',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ' + token,
+          },
+        ),
+      );
+
+      return Transaction.fromJson(response.data);
     } on DioError catch (e) {
       throw e.response.data["message"];
     } catch (error, stacktrace) {

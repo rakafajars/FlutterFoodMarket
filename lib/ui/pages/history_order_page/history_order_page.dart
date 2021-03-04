@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_food_market/cubit/transaction/transaction_cubit.dart';
-import 'package:flutter_food_market/model/transaction.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/pages/illustration/illustration_page.dart';
 import 'package:flutter_food_market/ui/widget/custom_tab_bar.dart';
@@ -23,11 +22,13 @@ class _HistoryOrderPageState extends State<HistoryOrderPage>
   @override
   Widget build(BuildContext context) {
     initRelativeScaler(context);
-
     return BlocBuilder<TransactionCubit, TransactionState>(
       builder: (context, state) {
+        if (state is TransactionLoadInProgress) {
+          return LoadingIndicator();
+        }
         if (state is TransactionLoadSuccess) {
-          if (state.transaction.length == 0) {
+          if (state.transaction.data == null) {
             return IllustrationPage(
               title: 'Ouch! Hungry',
               subTitle: 'Seems like you have not\nordered any food yet',
@@ -90,102 +91,73 @@ class _HistoryOrderPageState extends State<HistoryOrderPage>
                           SizedBox(
                             height: sy(12),
                           ),
-                          Builder(builder: (_) {
-                            List<Transaction> transaction = (selectedIndex == 0)
-                                ? state.transaction
-                                    .where(
-                                      (element) =>
-                                          element.status ==
-                                              TransactionStatus.on_delivery ||
-                                          element.status ==
-                                              TransactionStatus.pending,
-                                    )
-                                    .toList()
-                                : state.transaction
-                                    .where(
-                                      (element) =>
-                                          element.status ==
-                                              TransactionStatus.delivered ||
-                                          element.status ==
-                                              TransactionStatus.cancelled,
-                                    )
-                                    .toList();
-
-                            return Column(
-                              children: transaction
-                                  .map(
-                                    (e) => Padding(
-                                      padding: EdgeInsets.only(
-                                        left: defaultMargin,
-                                        right: defaultMargin,
-                                        bottom: 16,
-                                      ),
-                                      child: FoodListItem(
-                                        // pictureFood: e.food.picturePath,
-                                        // pictureNameFood: e.food.name,
-                                        // priceFood: e.food.price,
-                                        itemWidth: listItemWidth,
-                                        childCustom: SizedBox(
-                                          width: sy(90),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                convertDateTime(e.dateTime),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left: defaultMargin,
+                                  right: defaultMargin,
+                                  bottom: 16,
+                                ),
+                                child: FoodListItem(
+                                  pictureFood:
+                                      state.transaction.data.food.picturePath,
+                                  pictureNameFood:
+                                      state.transaction.data.food.name,
+                                  priceFood: state.transaction.data.food.price,
+                                  itemWidth: listItemWidth,
+                                  childCustom: SizedBox(
+                                    width: sy(90),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          DateTime.now().toString(),
+                                          style: textFontWeight400.copyWith(
+                                            fontSize: sy(10),
+                                            color: greyColor,
+                                          ),
+                                        ),
+                                        (state.transaction.data.status ==
+                                                'CANCELLED')
+                                            ? Text(
+                                                'Canceled',
                                                 style:
                                                     textFontWeight400.copyWith(
                                                   fontSize: sy(10),
-                                                  color: greyColor,
+                                                  color: Colors.red,
                                                 ),
-                                              ),
-                                              (e.status ==
-                                                      TransactionStatus
-                                                          .cancelled)
-                                                  ? Text(
-                                                      'Canceled',
-                                                      style: textFontWeight400
-                                                          .copyWith(
-                                                        fontSize: sy(10),
-                                                        color: Colors.red,
-                                                      ),
-                                                    )
-                                                  : (e.status ==
-                                                          TransactionStatus
-                                                              .pending)
-                                                      ? Text(
-                                                          'Pending',
-                                                          style:
-                                                              textFontWeight400
-                                                                  .copyWith(
-                                                            fontSize: sy(10),
-                                                            color: mainColor,
-                                                          ),
-                                                        )
-                                                      : (e.status ==
-                                                              TransactionStatus
-                                                                  .on_delivery)
-                                                          ? Text(
-                                                              'On Delivery',
-                                                              style:
-                                                                  textFontWeight400
-                                                                      .copyWith(
-                                                                fontSize:
-                                                                    sy(10),
-                                                                color: Colors
-                                                                    .green,
-                                                              ),
-                                                            )
-                                                          : SizedBox()
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                              )
+                                            : (state.transaction.data.status ==
+                                                    'PENDING')
+                                                ? Text(
+                                                    'Pending',
+                                                    style: textFontWeight400
+                                                        .copyWith(
+                                                      fontSize: sy(10),
+                                                      color: mainColor,
+                                                    ),
+                                                  )
+                                                : (state.transaction.data
+                                                            .status ==
+                                                        'ON_DELIVERY')
+                                                    ? Text(
+                                                        'On Delivery',
+                                                        style: textFontWeight400
+                                                            .copyWith(
+                                                          fontSize: sy(10),
+                                                          color: Colors.green,
+                                                        ),
+                                                      )
+                                                    : SizedBox()
+                                      ],
                                     ),
-                                  )
-                                  .toList(),
-                            );
-                          }),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     )
@@ -194,11 +166,11 @@ class _HistoryOrderPageState extends State<HistoryOrderPage>
               ],
             );
           }
-        } else {
-          return Center(
-            child: LoadingIndicator(),
-          );
         }
+        if (state is TransactionLoadError) {
+          return Text(state.message);
+        }
+        return Container();
       },
     );
   }
