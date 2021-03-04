@@ -100,21 +100,14 @@ class _FoodPageState extends State<FoodPage> with RelativeScale {
                                         right: defaultMargin),
                                     child: GestureDetector(
                                       onTap: () {
-                                        // Get.to(
-                                        //   FoodDetailPage(
-                                        //     transaction: Transaction(
-                                        //       food: e,
-                                        //       user: (context
-                                        //                   .bloc<UserCubit>()
-                                        //                   .state
-                                        //               as UserLoadSuccess)
-                                        //           .user,
-                                        //     ),
-                                        //     onBackButtonPressed: () {
-                                        //       Get.back();
-                                        //     },
-                                        //   ),
-                                        // );
+                                        Get.to(
+                                          FoodDetailPage(
+                                            datumFood: e,
+                                            onBackButtonPressed: () {
+                                              Get.back();
+                                            },
+                                          ),
+                                        );
                                       },
                                       child: FoodCard(
                                         food: e,

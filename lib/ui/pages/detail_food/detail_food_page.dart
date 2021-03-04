@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_food_market/model/food.dart';
 import 'package:flutter_food_market/model/transaction.dart';
 import 'package:flutter_food_market/shared/theme.dart';
 import 'package:flutter_food_market/ui/pages/payment/payment_page.dart';
@@ -12,12 +13,12 @@ import 'package:get/get.dart';
 
 class FoodDetailPage extends StatefulWidget {
   final Function onBackButtonPressed;
-  final Transaction transaction;
+  final DatumFood datumFood;
 
   const FoodDetailPage({
     Key key,
     this.onBackButtonPressed,
-    this.transaction,
+    this.datumFood,
   }) : super(key: key);
 
   @override
@@ -48,8 +49,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                    // widget.transaction.food.picturePath,
-                    '',
+                    widget.datumFood.picturePath,
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -116,8 +116,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                                     width: MediaQuery.of(context).size.width -
                                         sy(140),
                                     child: Text(
-                                      // widget.transaction.food.name,
-                                      'Baso',
+                                      widget.datumFood.name,
                                       style: textFontWeight400.copyWith(
                                         color: '020202'.toColor(),
                                         fontSize: sy(14),
@@ -128,8 +127,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                                     height: sy(4),
                                   ),
                                   RatinStars(
-                                    // rate: widget.transaction.food.rate,
-                                    rate: 20.0,
+                                    rate: widget.datumFood.rate.toDouble(),
                                   )
                                 ],
                               ),
@@ -195,8 +193,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                           Container(
                             margin: EdgeInsets.fromLTRB(0, 14, 0, 16),
                             child: Text(
-                              // widget.transaction.food.description,
-                              'asdadasdasdasd',
+                              widget.datumFood.description,
                               style: textFontWeight400.copyWith(
                                 color: greyColor,
                                 fontSize: sy(12),
@@ -213,8 +210,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                           Container(
                             margin: EdgeInsets.fromLTRB(0, 4, 0, 41),
                             child: Text(
-                              // widget.transaction.food.ingredients,
-                              'asdadasdasdas',
+                              widget.datumFood.ingredients,
                               style: textFontWeight400.copyWith(
                                 color: greyColor,
                                 fontSize: sy(12),
@@ -240,8 +236,8 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                                       symbol: 'IDR ',
                                       decimalDigits: 0,
                                     ).format(
-                                        // quantity * widget.transaction.food.price,
-                                        1500000),
+                                      quantity * widget.datumFood.price,
+                                    ),
                                     style: textFontWeight400.copyWith(
                                       color: '020202'.toColor(),
                                       fontSize: sy(12),
@@ -254,15 +250,15 @@ class _FoodDetailPageState extends State<FoodDetailPage> with RelativeScale {
                                 height: sy(40),
                                 child: RaisedButton(
                                   onPressed: () {
-                                    Get.to(
-                                      PaymentPage(
-                                        transaction: widget.transaction.copyWith(
-                                            // quantity: quantity,
-                                            // total: quantity * 1111114,
-                                            // widget.transaction.food.price,
-                                            ),
-                                      ),
-                                    );
+                                    // Get.to(
+                                    //   PaymentPage(
+                                    //     transaction: widget.transaction.copyWith(
+                                    //         // quantity: quantity,
+                                    //         // total: quantity * 1111114,
+                                    //         // widget.transaction.food.price,
+                                    //         ),
+                                    //   ),
+                                    // );
                                   },
                                   color: mainColor,
                                   elevation: 0,

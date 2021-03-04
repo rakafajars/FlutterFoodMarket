@@ -13,8 +13,8 @@ class PostRegister {
   PostRegister({
     @required this.name,
     @required this.email,
-    @required this.password,
-    @required this.passwordConfirmation,
+    this.password,
+    this.passwordConfirmation,
     @required this.address,
     @required this.city,
     @required this.houseNumber,
